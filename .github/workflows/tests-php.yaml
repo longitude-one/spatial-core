@@ -55,9 +55,6 @@ jobs:
       - name: Install libraries
         run: composer install -vvv
 
-      - name: Copy test suites
-        run: cp .github/phpunit.no-database-server.xml .
-
       - name: Run PHP test group
         run: composer run-script test-coverage
 
@@ -157,9 +154,6 @@ jobs:
 
       - name: Install libraries
         run: composer install -vvv
-
-      - name: Copy test suites
-        run: cp .github/phpunit.no-database-server.xml .
 
       - name: Run PHP test group
         run: composer run-script test
