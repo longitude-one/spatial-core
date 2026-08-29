@@ -44,6 +44,13 @@ class RangeException extends \RangeException implements ExceptionInterface
      */
     private const MAX_VALUE_LENGTH = 100;
 
+    /**
+     * Creates a range exception for the supplied value and error code.
+     *
+     * @param string          $value    value that falls outside the permitted range
+     * @param int             $code     range error code
+     * @param null|\Throwable $previous previous exception, if any
+     */
     public function __construct(string $value, int $code, ?\Throwable $previous = null)
     {
         $message = sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), $this->sanitizeValue($value));
@@ -52,7 +59,11 @@ class RangeException extends \RangeException implements ExceptionInterface
     }
 
     /**
-     * Create the range exception associated with a geographic axis.
+     * Creates the range exception associated with a geographic axis.
+     *
+     * @param AxisEnum        $axis     geographic axis whose range was exceeded
+     * @param string          $value    value that falls outside the permitted range
+     * @param null|\Throwable $previous previous exception, if any
      */
     public static function forAxis(AxisEnum $axis, string $value, ?\Throwable $previous = null): self
     {
@@ -71,6 +82,8 @@ class RangeException extends \RangeException implements ExceptionInterface
      *
      * Prevents a large or crafted input from inflating the exception message size or forging fake log lines
      * when that message is logged as-is.
+     *
+     * @param string $value value to sanitize
      */
     private function sanitizeValue(string $value): string
     {
@@ -83,6 +96,11 @@ class RangeException extends \RangeException implements ExceptionInterface
         return $value;
     }
 
+    /**
+     * Returns the range error message associated with an error code.
+     *
+     * @param int $code range error code
+     */
     private function setMessage(int $code): string
     {
         return match ($code) {

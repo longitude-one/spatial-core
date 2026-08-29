@@ -24,6 +24,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class RangeExceptionTest extends TestCase
 {
+    /**
+     * Tests that latitude values use the latitude range error.
+     */
     public function testLatitudeUsesTheLatitudeRangeError(): void
     {
         // The error belongs to the latitude when its value falls outside -90 to 90 degrees.
@@ -33,6 +36,9 @@ final class RangeExceptionTest extends TestCase
         self::assertSame('[RangeException] Latitude must be between -90 and 90, got "91".', $exception->getMessage());
     }
 
+    /**
+     * Tests that longitude values use the longitude range error.
+     */
     public function testLongitudeUsesTheLongitudeRangeError(): void
     {
         // The error belongs to the longitude when its value falls outside -180 to 180 degrees.

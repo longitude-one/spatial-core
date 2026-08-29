@@ -25,6 +25,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class AxisEnumTest extends TestCase
 {
+    /**
+     * Tests that each geographic axis identifies the complementary axis.
+     */
     public function testAxesCompleteEachOther(): void
     {
         // A geographic position always combines one north-south and one east-west axis.
@@ -32,6 +35,9 @@ final class AxisEnumTest extends TestCase
         self::assertSame(AxisEnum::LATITUDE, AxisEnum::LONGITUDE->other());
     }
 
+    /**
+     * Tests latitude's geographic conventions.
+     */
     public function testLatitudeConventions(): void
     {
         $latitude = AxisEnum::LATITUDE;
@@ -45,6 +51,9 @@ final class AxisEnumTest extends TestCase
         self::assertSame(90, $latitude->rangeLimit());
     }
 
+    /**
+     * Tests longitude's geographic conventions.
+     */
     public function testLongitudeConventions(): void
     {
         $longitude = AxisEnum::LONGITUDE;
