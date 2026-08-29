@@ -1,0 +1,13 @@
+{
+    "config": {
+        "MD013": {
+            "line_length": 200
+        }
+    },
+    "globs": [
+        "**/*.md"
+    ],
+    "ignores": [
+        "**/vendor/**"
+    ]
+}

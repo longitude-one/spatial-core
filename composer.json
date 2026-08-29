@@ -1,0 +1,56 @@
+{
+    "name": "longitude-one/spatial-core",
+    "type": "library",
+    "description": "Core classes for other LongitudeOne spatial libraries.",
+    "keywords": ["spatial", "geometry", "geography", "geo", "gis", "longitude-one"],
+    "authors": [
+        {
+            "name":  "Alexandre Tranchant",
+            "email": "alexandre.tranchant@gmail.com",
+            "role": "Lead maintainer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.5.34",
+        "phpunit/phpcov": "^11.0"
+    },
+    "scripts": {
+        "quality": [
+            "quality/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=quality/php-cs-fixer/.php-cs-fixer.php --allow-risky=yes --dry-run",
+            "quality/php-stan/vendor/bin/phpstan analyse --configuration=quality/php-stan/php-stan.neon lib tests --error-format=table --no-progress --no-interaction --no-ansi --level=9 --memory-limit=256M",
+            "quality/php-mess-detector/vendor/bin/phpmd lib text quality/php-mess-detector/ruleset.xml",
+            "quality/php-mess-detector/vendor/bin/phpmd tests text quality/php-mess-detector/test-ruleset.xml"
+        ],
+        "quality-fix": "quality/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=quality/php-cs-fixer/.php-cs-fixer.php --allow-risky=yes",
+        "markdownlint": "markdownlint-cli2 --config quality/markdownlint/.markdownlint-cli2.json",
+        "test": "phpunit",
+        "test-coverage": [
+            "phpunit --coverage-php .phpunit.cache/code-coverage/spatial-core.cov",
+            "phpcov merge --clover .phpunit.cache/code-coverage/clover.xml --html .phpunit.cache/code-coverage/html .phpunit.cache/code-coverage/"
+        ],
+        "test-local": [
+            "@test-coverage"
+        ],
+        "upgrade-tools": [
+            "composer update",
+            "composer update --working-dir=quality/php-cs-fixer",
+            "composer update --working-dir=quality/php-stan",
+            "composer update --working-dir=quality/php-mess-detector",
+            "composer update --working-dir=quality/php-code-sniffer"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "LongitudeOne\\Core\\": "lib/LongitudeOne/Core/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LongitudeOne\\Core\\Tests\\": "tests/LongitudeOne/Core/Tests/"
+        }
+    }
+}
