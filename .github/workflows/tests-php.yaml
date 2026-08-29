@@ -55,9 +55,6 @@ jobs:
       - name: Install libraries
         run: composer install -vvv
 
-      - name: Copy test suites
-        run: cp .github/phpunit.no-database-server.xml .
-
       - name: Run PHP test group
         run: composer run-script test-coverage
 
@@ -127,6 +124,7 @@ jobs:
   compatibility-test:
     name: PHP ${{ matrix.php-version }} tests
     runs-on: ubuntu-latest
+    needs: main-test
     strategy:
       fail-fast: false
       matrix:
@@ -157,9 +155,6 @@ jobs:
 
       - name: Install libraries
         run: composer install -vvv
-
-      - name: Copy test suites
-        run: cp .github/phpunit.no-database-server.xml .
 
       - name: Run PHP test group
         run: composer run-script test
