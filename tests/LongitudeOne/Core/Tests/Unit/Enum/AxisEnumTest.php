@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace LongitudeOne\Core\Tests\Unit;
+namespace LongitudeOne\Core\Tests\Unit\Enum;
 
-use LongitudeOne\Core\AxisEnum;
+use LongitudeOne\Core\Enum\AxisEnum;
 use PHPUnit\Framework\TestCase;
 
 /**

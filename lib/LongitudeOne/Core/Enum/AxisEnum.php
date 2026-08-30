@@ -20,7 +20,7 @@ declare(strict_types=1);
  * Copyright 2024-2026.
  */
 
-namespace LongitudeOne\Core;
+namespace LongitudeOne\Core\Enum;
 
 /**
  * Geographic coordinate axis and its cardinal constraints.

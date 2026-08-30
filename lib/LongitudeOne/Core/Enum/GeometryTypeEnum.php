@@ -1,22 +1,17 @@
 <?php
 /**
- * This file is part of the spatial project.
+ * This file is part of the LongitudeOne Spatial core library.
  *
- * PHP 8.4 | 8.5
+ * PHP 8.3 | 8.4 | 8.5
  *
- * Copyright Alexandre Tranchant <alexandre.tranchant@gmail.com> 2024-2026
- * Copyright Longitude One 2024-2026
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Copyright LongitudeOne - Alexandre Tranchant.
+ * Copyright 2026.
  *
  */
 
 declare(strict_types=1);
 
 namespace LongitudeOne\Core\Enum;
-
-use LongitudeOne\Core\TopologicalDimensionEnum;
 
 /**
  * Type of a spatial geometry.

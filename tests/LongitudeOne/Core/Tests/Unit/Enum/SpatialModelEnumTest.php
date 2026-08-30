@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace LongitudeOne\Core\Tests\Unit;
+namespace LongitudeOne\Core\Tests\Unit\Enum;
 
 use LongitudeOne\Core\Enum\SpatialModelEnum;
 use PHPUnit\Framework\TestCase;

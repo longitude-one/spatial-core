@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace LongitudeOne\Core\Exception;
 
-use LongitudeOne\Core\AxisEnum;
+use LongitudeOne\Core\Enum\AxisEnum;
 
 /**
  * RangeException.

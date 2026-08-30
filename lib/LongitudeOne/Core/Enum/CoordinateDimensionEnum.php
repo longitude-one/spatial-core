@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace LongitudeOne\Core;
+namespace LongitudeOne\Core\Enum;
 
 /**
  * Layout of the ordinates in every coordinate of a geometry.

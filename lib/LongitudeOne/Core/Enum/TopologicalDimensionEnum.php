@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace LongitudeOne\Core;
+namespace LongitudeOne\Core\Enum;
 
 /**
  * Intrinsic dimension of a geometry's point set.

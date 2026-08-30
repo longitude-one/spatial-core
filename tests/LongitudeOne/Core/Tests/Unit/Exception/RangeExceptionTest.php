@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace LongitudeOne\Core\Tests\Unit\Exception;
 
-use LongitudeOne\Core\AxisEnum;
+use LongitudeOne\Core\Enum\AxisEnum;
 use LongitudeOne\Core\Exception\RangeException;
 use PHPUnit\Framework\TestCase;
 
