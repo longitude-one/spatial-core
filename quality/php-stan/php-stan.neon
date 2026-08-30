@@ -4,6 +4,7 @@ includes:
 #    - vendor/phpstan/phpstan-phpunit/rules.neon
      - phpstan-baseline.neon
 parameters:
+    treatPhpDocTypesAsCertain: false
     paths:
         - ../../quality
         - ../../lib

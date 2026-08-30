@@ -102,6 +102,33 @@ assert(4 === $layout->coordinateDimension());
 assert('ZM' === $layout->wktModifier());
 ```
 
+### `UnitTypeEnum`
+
+`UnitTypeEnum` classifies the unit of measure of a spatial reference system as angular or linear. It
+prevents a value in degrees or radians from being treated as a distance in metres.
+
+```php
+use LongitudeOne\Core\Enum\UnitTypeEnum;
+
+$unitType = UnitTypeEnum::ANGULAR;
+
+assert('ANGULAR' === $unitType->value);
+```
+
+### `CoordinateReferenceSystemKindEnum`
+
+`CoordinateReferenceSystemKindEnum` identifies whether a spatial reference system is geographic,
+projected, or geocentric. Unlike `SpatialModelEnum`, it classifies the actual reference system rather
+than the model selected for spatial calculations.
+
+```php
+use LongitudeOne\Core\Enum\CoordinateReferenceSystemKindEnum;
+
+$kind = CoordinateReferenceSystemKindEnum::PROJECTED;
+
+assert('PROJECTED' === $kind->value);
+```
+
 ### `TopologicalDimensionEnum`
 
 `TopologicalDimensionEnum` expresses what a geometry represents independently of its coordinate
@@ -134,6 +161,19 @@ $type = GeometryTypeEnum::MULTIPOLYGON;
 assert($type->isMulti());
 assert(GeometryTypeEnum::POLYGON === $type->componentType());
 assert(TopologicalDimensionEnum::SURFACE === $type->topologicalDimension());
+```
+
+### `ByteOrderEnum`
+
+`ByteOrderEnum` provides the standard byte-order marker for a Well-Known Binary (WKB) serializer or
+parser. Big endian is encoded as `0`; little endian is encoded as `1`.
+
+```php
+use LongitudeOne\Core\Enum\ByteOrderEnum;
+
+$byteOrder = ByteOrderEnum::LITTLE_ENDIAN;
+
+assert(1 === $byteOrder->value);
 ```
 
 ### `SpatialModelEnum`
