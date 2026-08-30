@@ -1,6 +1,12 @@
 {
   "releaseCommitMessageFormat": "chore(release): v{{currentTag}} 🎉",
   "packageFiles": [],
+  "bumpFiles": [
+    {
+      "filename": "README.md",
+      "updater": "quality/commit-and-tag-version/readme-version-updater.cjs"
+    }
+  ],
   "types": [
     {"type": "feat", "section": "✨ New Features"},
     {"type": "fix", "section": "🐛 Bug Fixes"},

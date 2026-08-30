@@ -5,6 +5,7 @@
 [![PHP CI](https://github.com/longitude-one/spatial-core/actions/workflows/tests-php.yaml/badge.svg)](https://github.com/longitude-one/spatial-core/actions/workflows/tests-php.yaml)
 ![Minimum PHP Version](https://img.shields.io/packagist/php-v/longitude-one/spatial-core.svg?maxAge=3600)
 [![Downloads](https://img.shields.io/packagist/dm/longitude-one/spatial-core.svg)](https://packagist.org/packages/longitude-one/spatial-core)
+[![codecov](https://codecov.io/gh/longitude-one/spatial-core/graph/badge.svg?token=I6F6GZL5KK)](https://codecov.io/gh/longitude-one/spatial-core)
 
 Shared spatial primitives for LongitudeOne spatial libraries.
 
@@ -14,7 +15,7 @@ axis conventions, and exceptions for values outside their valid range.
 ## Installation
 
 ```bash
-composer require longitude-one/spatial-core:0.0.0
+composer require longitude-one/spatial-core:1.0.0
 ```
 
 ## Support policy
