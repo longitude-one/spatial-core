@@ -10,15 +10,7 @@
     <!-- Import the entire unused code rule set, but UnusedPrivateMethod -->
     <rule ref="rulesets/unusedcode.xml" />
     <!-- Import the entire code size rule, but excessive method length -->
-    <rule ref="rulesets/codesize.xml">
-        <exclude name="ExcessiveMethodLength"/>
-    </rule>
-    <!-- Set a minimum for excessive method length -->
-    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
-        <properties>
-            <property name="minimum" value="120"/>
-        </properties>
-    </rule>
+    <rule ref="rulesets/codesize.xml"/>
     <!-- Import the entire naming rule set -->
     <rule ref="rulesets/naming.xml" />
     <!-- Import the entire controversial rule set -->
