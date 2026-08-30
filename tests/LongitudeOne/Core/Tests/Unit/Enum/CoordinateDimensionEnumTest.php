@@ -35,6 +35,9 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(3, $location->coordinateDimension());
         self::assertTrue($location->is3D());
         self::assertFalse($location->hasM());
+        self::assertSame(['X', 'Y', 'Z'], $location->ordinates());
+        self::assertNull($location->mIndex());
+        self::assertSame(2, $location->zIndex());
         self::assertSame('Z', $location->wktModifier());
     }
 
@@ -48,6 +51,9 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(4, $route->coordinateDimension());
         self::assertTrue($route->is3D());
         self::assertTrue($route->hasM());
+        self::assertSame(['X', 'Y', 'Z', 'M'], $route->ordinates());
+        self::assertSame(3, $route->mIndex());
+        self::assertSame(2, $route->zIndex());
         self::assertSame('ZM', $route->wktModifier());
     }
 
@@ -61,6 +67,9 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(3, $route->coordinateDimension());
         self::assertFalse($route->is3D());
         self::assertTrue($route->hasM());
+        self::assertSame(['X', 'Y', 'M'], $route->ordinates());
+        self::assertSame(2, $route->mIndex());
+        self::assertNull($route->zIndex());
         self::assertSame('M', $route->wktModifier());
     }
 
@@ -74,6 +83,9 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(2, $location->coordinateDimension());
         self::assertFalse($location->is3D());
         self::assertFalse($location->hasM());
+        self::assertSame(['X', 'Y'], $location->ordinates());
+        self::assertNull($location->mIndex());
+        self::assertNull($location->zIndex());
         self::assertSame('', $location->wktModifier());
     }
 }
