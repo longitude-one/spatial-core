@@ -27,6 +27,58 @@ use PHPUnit\Framework\TestCase;
 final class GeometryTypeEnumTest extends TestCase
 {
     /**
+     * A circular route remains a curve made from point locations.
+     */
+    public function testCircularRoute(): void
+    {
+        $type = GeometryTypeEnum::CIRCULARSTRING;
+
+        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        self::assertSame(GeometryTypeEnum::POINT, $type->componentType());
+        self::assertFalse($type->isMulti());
+    }
+
+    /**
+     * A route combining line and arc segments does not have one component type.
+     */
+    public function testCompoundRoute(): void
+    {
+        $type = GeometryTypeEnum::COMPOUNDCURVE;
+
+        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        self::assertNull($type->componentType());
+        self::assertFalse($type->isMulti());
+    }
+
+    /**
+     * An area bounded by curves remains a surface.
+     */
+    public function testCurvedArea(): void
+    {
+        $type = GeometryTypeEnum::CURVEPOLYGON;
+
+        self::assertSame(TopologicalDimensionEnum::SURFACE, $type->topologicalDimension());
+        self::assertNull($type->componentType());
+        self::assertFalse($type->isMulti());
+    }
+
+    /**
+     * Generic multipart curves and surfaces retain their respective dimensions.
+     */
+    public function testGenericMultipartGeometries(): void
+    {
+        $curves = GeometryTypeEnum::MULTICURVE;
+        $surfaces = GeometryTypeEnum::MULTISURFACE;
+
+        self::assertSame(TopologicalDimensionEnum::CURVE, $curves->topologicalDimension());
+        self::assertNull($curves->componentType());
+        self::assertTrue($curves->isMulti());
+        self::assertSame(TopologicalDimensionEnum::SURFACE, $surfaces->topologicalDimension());
+        self::assertNull($surfaces->componentType());
+        self::assertTrue($surfaces->isMulti());
+    }
+
+    /**
      * A location is a point and has no component geometry.
      */
     public function testLocation(): void
@@ -86,5 +138,22 @@ final class GeometryTypeEnumTest extends TestCase
         self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
         self::assertSame(GeometryTypeEnum::POINT, $type->componentType());
         self::assertFalse($type->isMulti());
+    }
+
+    /**
+     * A terrain surface is triangulated, while a polyhedral surface is made of polygons.
+     */
+    public function testTerrainSurfaces(): void
+    {
+        $tin = GeometryTypeEnum::TIN;
+        $polyhedralSurface = GeometryTypeEnum::POLYHEDRALSURFACE;
+        $triangle = GeometryTypeEnum::TRIANGLE;
+
+        self::assertSame(TopologicalDimensionEnum::SURFACE, $tin->topologicalDimension());
+        self::assertSame(GeometryTypeEnum::TRIANGLE, $tin->componentType());
+        self::assertSame(TopologicalDimensionEnum::SURFACE, $polyhedralSurface->topologicalDimension());
+        self::assertSame(GeometryTypeEnum::POLYGON, $polyhedralSurface->componentType());
+        self::assertSame(TopologicalDimensionEnum::SURFACE, $triangle->topologicalDimension());
+        self::assertSame(GeometryTypeEnum::LINESTRING, $triangle->componentType());
     }
 }
