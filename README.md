@@ -21,7 +21,7 @@ composer require longitude-one/spatial-core:1.0.0
 ## Support policy
 
 This package supports PHP 8.3 and later. Its public API includes the enums documented below,
-`ExceptionInterface`, and `RangeException`.
+`DiagnosticValueFormatter`, `ExceptionInterface`, and `RangeException`.
 
 ## Geographic axes
 
@@ -190,6 +190,39 @@ $model = SpatialModelEnum::GEOGRAPHY;
 
 assert($model->isGeography());
 assert($model->requiresGeographicCoordinateRanges());
+```
+
+## Diagnostic value formatter
+
+`DiagnosticValueFormatter` produces a safe, single-line and bounded representation of an untrusted
+value before it is placed in an exception message, log entry, or terminal output. It makes control and
+problematic invisible Unicode characters visible, neutralizes terminal escape sequences, preserves valid
+UTF-8 where possible, and limits the result to 2,048 characters. It does not validate spatial data or
+escape data for HTML, JSON, XML, or SQL.
+
+```php
+use LongitudeOne\Core\Diagnostic\DiagnosticValueFormatter;
+
+$value = "POINT(2.3522 48.8566)\n";
+
+assert('POINT(2.3522 48.8566)\\n' === DiagnosticValueFormatter::format($value));
+```
+
+Exception factories can use the formatter while retaining their package-specific exception hierarchy:
+
+```php
+use LongitudeOne\Core\Diagnostic\DiagnosticValueFormatter;
+
+final class InvalidValueException extends \InvalidArgumentException implements ExceptionInterface
+{
+    public static function invalidCoordinate(string $coordinate): self
+    {
+        return new self(sprintf(
+            'Invalid coordinate "%s".',
+            DiagnosticValueFormatter::format($coordinate),
+        ));
+    }
+}
 ```
 
 ## Development
