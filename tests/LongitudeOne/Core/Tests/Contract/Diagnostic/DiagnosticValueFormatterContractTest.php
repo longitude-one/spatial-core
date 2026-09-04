@@ -110,10 +110,10 @@ final class DiagnosticValueFormatterContractTest extends TestCase
      */
     public function testHostileCombinedInputRespectsEveryProtection(): void
     {
-        $value = str_repeat("POINT(1 2)\n\x1B[2J\u{202E}", self::MAX_EXPECTED_LENGTH);
+        $value = str_repeat("POINT(1 2)\xC3\n\x1B[2J\u{202E}", self::MAX_EXPECTED_LENGTH);
         $result = DiagnosticValueFormatter::format($value);
 
-        self::assertStringContainsString('POINT(1 2)\n\u{001B}[2J\u{202E}', $result);
+        self::assertStringContainsString('POINT(1 2)\xC3\n\u{001B}[2J\u{202E}', $result);
         self::assertStringNotContainsString("\x1B", $result);
         self::assertStringEndsWith('…', $result);
         $this->assertDiagnosticInvariants($result);
