@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/longitude-one/spatial-core/compare/1.0.0...1.1.0) (2026-09-04)
+
+### ✨ New Features
+
+* Implement DiagnosticValueFormatter ([#4](https://github.com/longitude-one/spatial-core/issues/4)) ([db6f205](https://github.com/longitude-one/spatial-core/commit/db6f205768ace5ae3c9bbc1a3736f4926681799b)), closes [#3](https://github.com/longitude-one/spatial-core/issues/3)
+
+### 🔧 Maintenance
+
+* Update copyright information and remove outdated project references ([9977b41](https://github.com/longitude-one/spatial-core/commit/9977b41d95dad522f6e50b8edab0ff3a73fba0dd))
+
+### 📗​ PHPUnit tests
+
+* Update tests to handle malformed UTF-8 bytes and adjust expected output ([fcb98fb](https://github.com/longitude-one/spatial-core/commit/fcb98fb87b64e62c2b527b53b663a5edab8eb496))
+
 ## 1.0.0 (2026-08-30)
 
 ### ✨ New Features

@@ -15,7 +15,7 @@ axis conventions, and exceptions for values outside their valid range.
 ## Installation
 
 ```bash
-composer require longitude-one/spatial-core:1.0.0
+composer require longitude-one/spatial-core:1.1.0
 ```
 
 ## Support policy
