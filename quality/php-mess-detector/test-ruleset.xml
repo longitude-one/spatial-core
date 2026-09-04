@@ -9,8 +9,10 @@
     </description>
     <!-- Import the entire unused code rule set, but UnusedPrivateMethod -->
     <rule ref="rulesets/unusedcode.xml" />
-    <!-- Import the entire code size rule, but excessive method length -->
-    <rule ref="rulesets/codesize.xml"/>
+    <!-- Import the entire code-size rule set, except the public-method limit for test classes -->
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="TooManyPublicMethods"/>
+    </rule>
     <!-- Import the entire naming rule set -->
     <rule ref="rulesets/naming.xml" />
     <!-- Import the entire controversial rule set -->

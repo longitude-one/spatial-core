@@ -26,6 +26,24 @@ use PHPUnit\Framework\TestCase;
 final class RangeExceptionTest extends TestCase
 {
     /**
+     * A crafted value is delegated to the shared diagnostic formatter before it reaches the message.
+     */
+    public function testDiagnosticValueIsSanitizedBeforeItIsAddedToTheMessage(): void
+    {
+        $value = "invalid\nvalue\x1B[31m";
+        $exception = new RangeException($value, RangeException::LATITUDE_OUT_OF_RANGE);
+
+        $sanitizedValue = 'invalid\nvalue\u{001B}[31m';
+
+        self::assertSame(
+            sprintf('[RangeException] %s, got "%s".', RangeException::LATITUDE_MESSAGE, $sanitizedValue),
+            $exception->getMessage(),
+        );
+        self::assertStringNotContainsString("\n", $exception->getMessage());
+        self::assertStringNotContainsString("\x1B", $exception->getMessage());
+    }
+
+    /**
      * Tests that latitude values use the latitude range error.
      */
     public function testLatitudeUsesTheLatitudeRangeError(): void
@@ -47,24 +65,6 @@ final class RangeExceptionTest extends TestCase
 
         self::assertSame(RangeException::LONGITUDE_OUT_OF_RANGE, $exception->getCode());
         self::assertSame('[RangeException] Longitude must be between -180 and 180, got "181".', $exception->getMessage());
-    }
-
-    /**
-     * A long crafted value cannot forge a new log line or inflate the exception message.
-     */
-    public function testLongValueIsSanitizedBeforeItIsAddedToTheMessage(): void
-    {
-        $value = str_repeat('a', 99)."\n".str_repeat('b', 10);
-        $exception = new RangeException($value, RangeException::LATITUDE_OUT_OF_RANGE);
-
-        $sanitizedValue = str_repeat('a', 99).' ...';
-
-        self::assertSame(
-            sprintf('[RangeException] %s, got "%s".', RangeException::LATITUDE_MESSAGE, $sanitizedValue),
-            $exception->getMessage(),
-        );
-        self::assertStringNotContainsString("\n", $exception->getMessage());
-        self::assertStringNotContainsString("\r", $exception->getMessage());
     }
 
     /**

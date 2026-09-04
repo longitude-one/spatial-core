@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace LongitudeOne\Core\Exception;
 
+use LongitudeOne\Core\Diagnostic\DiagnosticValueFormatter;
 use LongitudeOne\Core\Enum\AxisEnum;
 
 /**
@@ -40,11 +41,6 @@ class RangeException extends \RangeException implements ExceptionInterface
     public const SECONDS_OUT_OF_RANGE = 60;
 
     /**
-     * Maximum length of the value embedded in the exception message.
-     */
-    private const MAX_VALUE_LENGTH = 100;
-
-    /**
      * Creates a range exception for the supplied value and error code.
      *
      * @param string          $value    value that falls outside the permitted range
@@ -53,7 +49,7 @@ class RangeException extends \RangeException implements ExceptionInterface
      */
     public function __construct(string $value, int $code, ?\Throwable $previous = null)
     {
-        $message = sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), $this->sanitizeValue($value));
+        $message = sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), DiagnosticValueFormatter::format($value));
 
         parent::__construct($message, $code, $previous);
     }
@@ -75,25 +71,6 @@ class RangeException extends \RangeException implements ExceptionInterface
             },
             $previous,
         );
-    }
-
-    /**
-     * Strip control characters (CR, LF, ...) and truncate a value before it is embedded in the exception message.
-     *
-     * Prevents a large or crafted input from inflating the exception message size or forging fake log lines
-     * when that message is logged as-is.
-     *
-     * @param string $value value to sanitize
-     */
-    private function sanitizeValue(string $value): string
-    {
-        $value = (string) preg_replace('/[\x00-\x1F\x7F]/', ' ', $value);
-
-        if (mb_strlen($value) > self::MAX_VALUE_LENGTH) {
-            return mb_substr($value, 0, self::MAX_VALUE_LENGTH).'...';
-        }
-
-        return $value;
     }
 
     /**
