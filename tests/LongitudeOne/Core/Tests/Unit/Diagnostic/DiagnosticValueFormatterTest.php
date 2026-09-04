@@ -90,5 +90,7 @@ final class DiagnosticValueFormatterTest extends TestCase
         yield 'plain characters' => [str_repeat('a', DiagnosticValueFormatter::MAX_LENGTH + 1)];
 
         yield 'expanding newlines' => [str_repeat("\n", DiagnosticValueFormatter::MAX_LENGTH)];
+
+        yield 'malformed UTF-8 bytes' => [str_repeat("\xFF", DiagnosticValueFormatter::MAX_LENGTH)];
     }
 }
