@@ -63,6 +63,34 @@ final class GeometryTypeEnumTest extends TestCase
     }
 
     /**
+     * Generic, abstract, and volumetric types have no homogeneous component.
+     */
+    public function testGenericAndVolumetricTypes(): void
+    {
+        $geometry = GeometryTypeEnum::GEOMETRY;
+        $curve = GeometryTypeEnum::CURVE;
+        $solid = GeometryTypeEnum::SOLID;
+
+        self::assertNull($geometry->componentType());
+        self::assertNull($geometry->topologicalDimension());
+        self::assertFalse($geometry->isCollection());
+        self::assertFalse($geometry->isMulti());
+        self::assertFalse($geometry->isInstantiable());
+
+        self::assertNull($curve->componentType());
+        self::assertSame(TopologicalDimensionEnum::CURVE, $curve->topologicalDimension());
+        self::assertFalse($curve->isCollection());
+        self::assertFalse($curve->isMulti());
+        self::assertFalse($curve->isInstantiable());
+
+        self::assertNull($solid->componentType());
+        self::assertSame(TopologicalDimensionEnum::VOLUME, $solid->topologicalDimension());
+        self::assertFalse($solid->isCollection());
+        self::assertFalse($solid->isMulti());
+        self::assertFalse($solid->isInstantiable());
+    }
+
+    /**
      * Generic multipart curves and surfaces retain their respective dimensions.
      */
     public function testGenericMultipartGeometries(): void
@@ -76,6 +104,41 @@ final class GeometryTypeEnumTest extends TestCase
         self::assertSame(TopologicalDimensionEnum::SURFACE, $surfaces->topologicalDimension());
         self::assertNull($surfaces->componentType());
         self::assertTrue($surfaces->isMulti());
+    }
+
+    /**
+     * Every geometry type has an explicit instantiability classification.
+     */
+    public function testInstantiabilityClassification(): void
+    {
+        $expected = [
+            GeometryTypeEnum::CIRCULARSTRING->name => true,
+            GeometryTypeEnum::COMPOUNDCURVE->name => true,
+            GeometryTypeEnum::CURVE->name => false,
+            GeometryTypeEnum::CURVEPOLYGON->name => true,
+            GeometryTypeEnum::GEOMETRY->name => false,
+            GeometryTypeEnum::GEOMETRYCOLLECTION->name => true,
+            GeometryTypeEnum::LINESTRING->name => true,
+            GeometryTypeEnum::MULTICURVE->name => true,
+            GeometryTypeEnum::MULTILINESTRING->name => true,
+            GeometryTypeEnum::MULTIPOINT->name => true,
+            GeometryTypeEnum::MULTIPOLYGON->name => true,
+            GeometryTypeEnum::MULTISURFACE->name => true,
+            GeometryTypeEnum::POINT->name => true,
+            GeometryTypeEnum::POLYGON->name => true,
+            GeometryTypeEnum::POLYHEDRALSURFACE->name => true,
+            GeometryTypeEnum::SOLID->name => false,
+            GeometryTypeEnum::SURFACE->name => false,
+            GeometryTypeEnum::TIN->name => true,
+            GeometryTypeEnum::TRIANGLE->name => true,
+        ];
+
+        self::assertCount(count(GeometryTypeEnum::cases()), $expected);
+
+        foreach (GeometryTypeEnum::cases() as $type) {
+            self::assertArrayHasKey($type->name, $expected);
+            self::assertSame($expected[$type->name], $type->isInstantiable());
+        }
     }
 
     /**
