@@ -24,8 +24,14 @@ enum GeometryTypeEnum: string
     /** A route made of linear and circular segments. */
     case COMPOUNDCURVE = 'CompoundCurve';
 
+    /** An abstract curve geometry type. */
+    case CURVE = 'Curve';
+
     /** An area bounded by curves. */
     case CURVEPOLYGON = 'CurvePolygon';
+
+    /** The generic geometry type. */
+    case GEOMETRY = 'Geometry';
 
     /** A geometry collection. */
     case GEOMETRYCOLLECTION = 'GeometryCollection';
@@ -57,6 +63,12 @@ enum GeometryTypeEnum: string
     /** A surface composed of polygon patches. */
     case POLYHEDRALSURFACE = 'PolyhedralSurface';
 
+    /** A solid geometry type. */
+    case SOLID = 'Solid';
+
+    /** An abstract surface geometry type. */
+    case SURFACE = 'Surface';
+
     /** A triangulated irregular network. */
     case TIN = 'TIN';
 
@@ -73,12 +85,7 @@ enum GeometryTypeEnum: string
             self::POLYGON, self::MULTILINESTRING, self::TRIANGLE => self::LINESTRING,
             self::MULTIPOLYGON, self::POLYHEDRALSURFACE => self::POLYGON,
             self::TIN => self::TRIANGLE,
-            self::COMPOUNDCURVE,
-            self::CURVEPOLYGON,
-            self::GEOMETRYCOLLECTION,
-            self::MULTICURVE,
-            self::MULTISURFACE,
-            self::POINT => null,
+            default => null,
         };
     }
 
@@ -88,6 +95,22 @@ enum GeometryTypeEnum: string
     public function isCollection(): bool
     {
         return self::GEOMETRYCOLLECTION === $this;
+    }
+
+    /**
+     * Return whether this geometry type can be instantiated.
+     *
+     * GEOMETRY, CURVE, SOLID, and SURFACE are non-instantiable; every other enum case is instantiable.
+     */
+    public function isInstantiable(): bool
+    {
+        return match ($this) {
+            self::CURVE,
+            self::GEOMETRY,
+            self::SOLID,
+            self::SURFACE => false,
+            default => true,
+        };
     }
 
     /**
@@ -106,7 +129,7 @@ enum GeometryTypeEnum: string
     }
 
     /**
-     * Return the topological dimension, or null for a heterogeneous collection.
+     * Return the topological dimension, or null when it is not specific to a geometry type.
      */
     public function topologicalDimension(): ?TopologicalDimensionEnum
     {
@@ -114,6 +137,7 @@ enum GeometryTypeEnum: string
             self::POINT, self::MULTIPOINT => TopologicalDimensionEnum::POINT,
             self::CIRCULARSTRING,
             self::COMPOUNDCURVE,
+            self::CURVE,
             self::LINESTRING,
             self::MULTICURVE,
             self::MULTILINESTRING => TopologicalDimensionEnum::CURVE,
@@ -122,9 +146,11 @@ enum GeometryTypeEnum: string
             self::MULTISURFACE,
             self::POLYGON,
             self::POLYHEDRALSURFACE,
+            self::SURFACE,
             self::TIN,
             self::TRIANGLE => TopologicalDimensionEnum::SURFACE,
-            self::GEOMETRYCOLLECTION => null,
+            self::SOLID => TopologicalDimensionEnum::VOLUME,
+            default => null,
         };
     }
 }

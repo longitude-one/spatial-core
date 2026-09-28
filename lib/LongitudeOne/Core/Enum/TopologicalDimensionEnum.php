@@ -34,6 +34,9 @@ enum TopologicalDimensionEnum: int
     /** The dimension of a surface geometry. */
     case SURFACE = 2;
 
+    /** The dimension of a solid geometry. */
+    case VOLUME = 3;
+
     /**
      * Return whether this represents a curve geometry.
      */
@@ -64,5 +67,13 @@ enum TopologicalDimensionEnum: int
     public function isSurface(): bool
     {
         return self::SURFACE === $this;
+    }
+
+    /**
+     * Return whether this represents a volume geometry.
+     */
+    public function isVolume(): bool
+    {
+        return self::VOLUME === $this;
     }
 }

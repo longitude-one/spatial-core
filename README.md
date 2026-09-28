@@ -151,7 +151,11 @@ assert(!$dimension->isCurve());
 
 `GeometryTypeEnum` names the concrete shape of a spatial value, such as a point, line string, polygon,
 or geometry collection. It exposes a type's homogeneous component and topological dimension, making
-it useful for creating and validating multipart geometries.
+it useful for creating and validating multipart geometries. Its `isInstantiable()` method returns
+`false` for the abstract `SURFACE` type and `true` for every other enum case, including `MULTICURVE`
+and `MULTISURFACE`. The classification considers OGC Simple Feature Access 1.2.1 sections 6.1.2,
+6.1.10, and 6.1.13, and ISO/IEC CD 13249-3:201x(E) sections 4.2, 4.2.8, 4.2.16, and 4.2.18; the ISO
+source is a Committee Draft, not a published ISO edition.
 
 ```php
 use LongitudeOne\Core\Enum\GeometryTypeEnum;
@@ -160,6 +164,7 @@ use LongitudeOne\Core\Enum\TopologicalDimensionEnum;
 $type = GeometryTypeEnum::MULTIPOLYGON;
 
 assert($type->isMulti());
+assert($type->isInstantiable());
 assert(GeometryTypeEnum::POLYGON === $type->componentType());
 assert(TopologicalDimensionEnum::SURFACE === $type->topologicalDimension());
 ```
