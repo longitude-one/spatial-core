@@ -12,3 +12,6 @@
 # Ignore tests and related resources
 /tests export-ignore
 phpunit.xml.dist export-ignore
+
+# Ignore development and build tools
+/.versionrc.json export-ignore

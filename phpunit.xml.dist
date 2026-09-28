@@ -8,7 +8,7 @@
   cacheDirectory=".phpunit.cache">
   <testsuites>
     <testsuite name="default">
-      <directory>tests/LongitudeOne/Core/Tests</directory>
+      <directory>tests/</directory>
     </testsuite>
   </testsuites>
   <source>
