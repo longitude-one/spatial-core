@@ -76,4 +76,18 @@ final class TopologicalDimensionEnumTest extends TestCase
         self::assertFalse($geometry->isPoint());
         self::assertFalse($geometry->isSurface());
     }
+
+    /**
+     * A solid is represented by a volume.
+     */
+    public function testVolume(): void
+    {
+        $geometry = TopologicalDimensionEnum::VOLUME;
+
+        self::assertTrue($geometry->isVolume());
+        self::assertFalse($geometry->isEmpty());
+        self::assertFalse($geometry->isPoint());
+        self::assertFalse($geometry->isCurve());
+        self::assertFalse($geometry->isSurface());
+    }
 }
