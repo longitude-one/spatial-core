@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "LongitudeOne\\Core\\": "lib/LongitudeOne/Core/"
+            "LongitudeOne\\Core\\": "lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LongitudeOne\\Core\\Tests\\": "tests/LongitudeOne/Core/Tests/"
+            "LongitudeOne\\Core\\Tests\\": "tests/"
         }
     }
 }
