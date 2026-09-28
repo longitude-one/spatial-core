@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/longitude-one/spatial-core/compare/1.1.0...1.2.0) (2026-09-28)
+
+### ✨ New Features
+
+* Add volume geometry type ([5336fa2](https://github.com/longitude-one/spatial-core/commit/5336fa200459579d469b38b77a421e5b1199ea8f))
+* Implement instantiability classification ([b545e20](https://github.com/longitude-one/spatial-core/commit/b545e20458ad282929e21c8649fd9699d17715fa))
+
+### 🔧 Maintenance
+
+* PSR-4 improved ([088be4f](https://github.com/longitude-one/spatial-core/commit/088be4f5e506ffc6d846eeb4d5b3b01587d955d9))
+
 ## [1.1.0](https://github.com/longitude-one/spatial-core/compare/1.0.0...1.1.0) (2026-09-04)
 
 ### ✨ New Features
