@@ -18,17 +18,35 @@ namespace LongitudeOne\Core\Enum;
  */
 enum GeometryTypeEnum: string
 {
+    /** A solid bounded by exterior and interior surface shells. */
+    case BREPSOLID = 'BRepSolid';
+
+    /** A simple closed circular curve. */
+    case CIRCLE = 'Circle';
+
     /** A route formed from circular arcs. */
     case CIRCULARSTRING = 'CircularString';
 
+    /** A curve with clothoid interpolation. */
+    case CLOTHOID = 'Clothoid';
+
     /** A route made of linear and circular segments. */
     case COMPOUNDCURVE = 'CompoundCurve';
+
+    /** A surface formed from connected surface patches. */
+    case COMPOUNDSURFACE = 'CompoundSurface';
 
     /** An abstract curve geometry type. */
     case CURVE = 'Curve';
 
     /** An area bounded by curves. */
     case CURVEPOLYGON = 'CurvePolygon';
+
+    /** A curve with elliptical interpolation. */
+    case ELLIPTICALCURVE = 'EllipticalCurve';
+
+    /** A route formed from geodesic segments. */
+    case GEODESICSTRING = 'GeodesicString';
 
     /** The generic geometry type. */
     case GEOMETRY = 'Geometry';
@@ -54,6 +72,9 @@ enum GeometryTypeEnum: string
     /** A collection of surfaces. */
     case MULTISURFACE = 'MultiSurface';
 
+    /** A non-uniform rational B-spline curve. */
+    case NURBSCURVE = 'NURBSCurve';
+
     /** A location. */
     case POINT = 'Point';
 
@@ -65,6 +86,9 @@ enum GeometryTypeEnum: string
 
     /** A solid geometry type. */
     case SOLID = 'Solid';
+
+    /** A curve with spiral interpolation. */
+    case SPIRALCURVE = 'SpiralCurve';
 
     /** An abstract surface geometry type. */
     case SURFACE = 'Surface';
@@ -81,7 +105,7 @@ enum GeometryTypeEnum: string
     public function componentType(): ?self
     {
         return match ($this) {
-            self::CIRCULARSTRING, self::LINESTRING, self::MULTIPOINT => self::POINT,
+            self::CIRCLE, self::CIRCULARSTRING, self::GEODESICSTRING, self::LINESTRING, self::MULTIPOINT => self::POINT,
             self::POLYGON, self::MULTILINESTRING, self::TRIANGLE => self::LINESTRING,
             self::MULTIPOLYGON, self::POLYHEDRALSURFACE => self::POLYGON,
             self::TIN => self::TRIANGLE,
@@ -135,12 +159,19 @@ enum GeometryTypeEnum: string
     {
         return match ($this) {
             self::POINT, self::MULTIPOINT => TopologicalDimensionEnum::POINT,
+            self::CIRCLE,
             self::CIRCULARSTRING,
+            self::CLOTHOID,
             self::COMPOUNDCURVE,
             self::CURVE,
+            self::ELLIPTICALCURVE,
+            self::GEODESICSTRING,
             self::LINESTRING,
             self::MULTICURVE,
-            self::MULTILINESTRING => TopologicalDimensionEnum::CURVE,
+            self::MULTILINESTRING,
+            self::NURBSCURVE,
+            self::SPIRALCURVE => TopologicalDimensionEnum::CURVE,
+            self::COMPOUNDSURFACE,
             self::CURVEPOLYGON,
             self::MULTIPOLYGON,
             self::MULTISURFACE,
@@ -149,7 +180,7 @@ enum GeometryTypeEnum: string
             self::SURFACE,
             self::TIN,
             self::TRIANGLE => TopologicalDimensionEnum::SURFACE,
-            self::SOLID => TopologicalDimensionEnum::VOLUME,
+            self::BREPSOLID, self::SOLID => TopologicalDimensionEnum::VOLUME,
             default => null,
         };
     }

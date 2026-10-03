@@ -27,6 +27,37 @@ use PHPUnit\Framework\TestCase;
 final class GeometryTypeEnumTest extends TestCase
 {
     /**
+     * Additional ISO geometry types retain their identity and complete classification.
+     */
+    public function testAdditionalGeometryTypes(): void
+    {
+        $expected = [
+            ['BREPSOLID', 'BRepSolid', TopologicalDimensionEnum::VOLUME, null],
+            ['CIRCLE', 'Circle', TopologicalDimensionEnum::CURVE, GeometryTypeEnum::POINT],
+            ['CLOTHOID', 'Clothoid', TopologicalDimensionEnum::CURVE, null],
+            ['COMPOUNDSURFACE', 'CompoundSurface', TopologicalDimensionEnum::SURFACE, null],
+            ['ELLIPTICALCURVE', 'EllipticalCurve', TopologicalDimensionEnum::CURVE, null],
+            ['GEODESICSTRING', 'GeodesicString', TopologicalDimensionEnum::CURVE, GeometryTypeEnum::POINT],
+            ['NURBSCURVE', 'NURBSCurve', TopologicalDimensionEnum::CURVE, null],
+            ['SPIRALCURVE', 'SpiralCurve', TopologicalDimensionEnum::CURVE, null],
+        ];
+
+        foreach ($expected as [$name, $value, $dimension, $component]) {
+            $type = GeometryTypeEnum::from($value);
+
+            self::assertSame($name, $type->name);
+            self::assertSame($value, $type->value);
+            self::assertSame($type, GeometryTypeEnum::tryFrom($value));
+            self::assertContains($type, GeometryTypeEnum::cases());
+            self::assertSame($dimension, $type->topologicalDimension());
+            self::assertSame($component, $type->componentType());
+            self::assertTrue($type->isInstantiable());
+            self::assertFalse($type->isCollection());
+            self::assertFalse($type->isMulti());
+        }
+    }
+
+    /**
      * A circular route remains a curve made from point locations.
      */
     public function testCircularRoute(): void
@@ -112,6 +143,14 @@ final class GeometryTypeEnumTest extends TestCase
     public function testInstantiabilityClassification(): void
     {
         $expected = [
+            GeometryTypeEnum::SPIRALCURVE->name => true,
+            GeometryTypeEnum::NURBSCURVE->name => true,
+            GeometryTypeEnum::GEODESICSTRING->name => true,
+            GeometryTypeEnum::ELLIPTICALCURVE->name => true,
+            GeometryTypeEnum::COMPOUNDSURFACE->name => true,
+            GeometryTypeEnum::CLOTHOID->name => true,
+            GeometryTypeEnum::CIRCLE->name => true,
+            GeometryTypeEnum::BREPSOLID->name => true,
             GeometryTypeEnum::CIRCULARSTRING->name => true,
             GeometryTypeEnum::COMPOUNDCURVE->name => true,
             GeometryTypeEnum::CURVE->name => false,

@@ -149,13 +149,20 @@ assert(!$dimension->isCurve());
 
 ### `GeometryTypeEnum`
 
-`GeometryTypeEnum` names the concrete shape of a spatial value, such as a point, line string, polygon,
-or geometry collection. It exposes a type's homogeneous component and topological dimension, making
-it useful for creating and validating multipart geometries. Its `isInstantiable()` method returns
-`false` for the abstract `SURFACE` type and `true` for every other enum case, including `MULTICURVE`
-and `MULTISURFACE`. The classification considers OGC Simple Feature Access 1.2.1 sections 6.1.2,
-6.1.10, and 6.1.13, and ISO/IEC CD 13249-3:201x(E) sections 4.2, 4.2.8, 4.2.16, and 4.2.18; the ISO
-source is a Committee Draft, not a published ISO edition.
+`GeometryTypeEnum` identifies geometry types and exposes their homogeneous component and topological
+dimension. Its `isInstantiable()` method returns `false` for `GEOMETRY`, `CURVE`, `SOLID`, and `SURFACE`,
+and `true` for every other case, including `MULTICURVE` and `MULTISURFACE`.
+
+The additional types `BREPSOLID`, `CIRCLE`, `CLOTHOID`, `COMPOUNDSURFACE`, `ELLIPTICALCURVE`,
+`GEODESICSTRING`, `NURBSCURVE`, and `SPIRALCURVE` are instantiable. `BREPSOLID` has volume dimension,
+`COMPOUNDSURFACE` has surface dimension, and the remaining types have curve dimension. None is a
+multi-geometry or a geometry collection. `CIRCLE` and `GEODESICSTRING` have `POINT` components.
+The other additions have no single concrete component type exposed by this enum: compound surfaces
+and solid shells can use different surface subtypes, while NURBS curves use weighted control points
+and knots, and the other curves use constructive parameters.
+
+These additions follow ISO/IEC DIS 13249-3, fifth-edition ballot text N2593 dated 2015-01-25,
+clauses 4.2.7–4.2.12, 4.2.20, 4.2.22, 7.4.1–7.9.1, 8.7.1, and 9.2.1. Enum membership does not imply concrete geometry classes or support for encoding or decoding these types.
 
 ```php
 use LongitudeOne\Core\Enum\GeometryTypeEnum;
