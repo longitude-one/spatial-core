@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/longitude-one/spatial-core/compare/1.2.0...1.3.0) (2026-10-03)
+
+### ✨ New Features
+
+* Add additional ISO geometry types and update classification ([49f1a8e](https://github.com/longitude-one/spatial-core/commit/49f1a8eea67135726cdff346a28ec3e3b32271a1))
+
+### 📚 Documentation
+
+* Add repository guidelines and update markdownlint configuration ([49bc5de](https://github.com/longitude-one/spatial-core/commit/49bc5de7f78cb8352e078bf079b1dd3b4fdff5eb))
+
 ## [1.2.0](https://github.com/longitude-one/spatial-core/compare/1.1.0...1.2.0) (2026-09-28)
 
 ### ✨ New Features
