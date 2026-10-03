@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### ✨ New Features
 
-* Implement DiagnosticValueFormatter ([#4](https://github.com/longitude-one/spatial-core/issues/4)) ([db6f205](https://github.com/longitude-one/spatial-core/commit/db6f205768ace5ae3c9bbc1a3736f4926681799b)), closes [#3](https://github.com/longitude-one/spatial-core/issues/3)
+* Implement DiagnosticValueFormatter ([#4](https://github.com/longitude-one/spatial-core/issues/4)) ([db6f205](https://github.com/longitude-one/spatial-core/commit/db6f205768ace5ae3c9bbc1a3736f4926681799b))
 
 ### 🔧 Maintenance
 
