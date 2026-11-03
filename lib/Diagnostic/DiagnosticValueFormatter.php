@@ -21,9 +21,9 @@ final class DiagnosticValueFormatter
     /**
      * Maximum number of characters in a formatted value, including the truncation suffix.
      */
-    public const MAX_LENGTH = 2048;
+    public const int MAX_LENGTH = 2048;
 
-    private const TRUNCATION_SUFFIX = '…';
+    private const string TRUNCATION_SUFFIX = '…';
 
     /**
      * Formats a value for inclusion in a diagnostic message.

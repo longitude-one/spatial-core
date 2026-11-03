@@ -21,15 +21,15 @@ use LongitudeOne\Core\Enum\AxisEnum;
  */
 class RangeException extends \RangeException implements ExceptionInterface
 {
-    public const DEFAULT_MESSAGE = 'Unknown range exception';
-    public const LATITUDE_MESSAGE = 'Latitude must be between -90 and 90';
-    public const LATITUDE_OUT_OF_RANGE = 90;
-    public const LONGITUDE_MESSAGE = 'Longitude must be between -180 and 180';
-    public const LONGITUDE_OUT_OF_RANGE = 180;
-    public const MINUTES_MESSAGE = 'Minutes must be between 0 and 59';
-    public const MINUTES_OUT_OF_RANGE = 3600;
-    public const SECONDS_MESSAGE = 'Seconds must be between 0 and 59';
-    public const SECONDS_OUT_OF_RANGE = 60;
+    public const string DEFAULT_MESSAGE = 'Unknown range exception';
+    public const string LATITUDE_MESSAGE = 'Latitude must be between -90 and 90';
+    public const int LATITUDE_OUT_OF_RANGE = 90;
+    public const string LONGITUDE_MESSAGE = 'Longitude must be between -180 and 180';
+    public const int LONGITUDE_OUT_OF_RANGE = 180;
+    public const string MINUTES_MESSAGE = 'Minutes must be between 0 and 59';
+    public const int MINUTES_OUT_OF_RANGE = 3600;
+    public const string SECONDS_MESSAGE = 'Seconds must be between 0 and 59';
+    public const int SECONDS_OUT_OF_RANGE = 60;
 
     /**
      * Creates a range exception for the supplied value and error code.
