@@ -82,10 +82,10 @@ jobs:
         run: composer install --working-dir=quality/php-mess-detector
 
       - name: Run PHP-MESS-DETECTOR on lib directory
-        run: ./quality/php-mess-detector/vendor/bin/phpmd lib text quality/php-mess-detector/ruleset.xml
+        run: ./quality/php-mess-detector/vendor/bin/phpmd analyze lib --format text --ruleset quality/php-mess-detector/ruleset.yml
 
       - name: Run PHP-MESS-DETECTOR on tests directory
-        run: ./quality/php-mess-detector/vendor/bin/phpmd tests text quality/php-mess-detector/test-ruleset.xml
+        run: ./quality/php-mess-detector/vendor/bin/phpmd analyze tests --format text --ruleset quality/php-mess-detector/test-ruleset.yml
 
       - name: Cache Composer PHP-CS packages
         uses: actions/cache@v6
