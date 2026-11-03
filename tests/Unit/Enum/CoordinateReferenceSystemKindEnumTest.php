@@ -30,7 +30,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeocentricCoordinateReferenceSystem(): void
     {
-        self::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
+        static::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
     }
 
     /**
@@ -38,7 +38,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeographicCoordinateReferenceSystem(): void
     {
-        self::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
+        static::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
     }
 
     /**
@@ -46,6 +46,6 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testProjectedCoordinateReferenceSystem(): void
     {
-        self::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
+        static::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
     }
 }

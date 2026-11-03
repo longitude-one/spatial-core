@@ -45,15 +45,15 @@ final class GeometryTypeEnumTest extends TestCase
         foreach ($expected as [$name, $value, $dimension, $component]) {
             $type = GeometryTypeEnum::from($value);
 
-            self::assertSame($name, $type->name);
-            self::assertSame($value, $type->value);
-            self::assertSame($type, GeometryTypeEnum::tryFrom($value));
-            self::assertContains($type, GeometryTypeEnum::cases());
-            self::assertSame($dimension, $type->topologicalDimension());
-            self::assertSame($component, $type->componentType());
-            self::assertTrue($type->isInstantiable());
-            self::assertFalse($type->isCollection());
-            self::assertFalse($type->isMulti());
+            static::assertSame($name, $type->name);
+            static::assertSame($value, $type->value);
+            static::assertSame($type, GeometryTypeEnum::tryFrom($value));
+            static::assertContains($type, GeometryTypeEnum::cases());
+            static::assertSame($dimension, $type->topologicalDimension());
+            static::assertSame($component, $type->componentType());
+            static::assertTrue($type->isInstantiable());
+            static::assertFalse($type->isCollection());
+            static::assertFalse($type->isMulti());
         }
     }
 
@@ -64,9 +64,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::CIRCULARSTRING;
 
-        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::POINT, $type->componentType());
-        self::assertFalse($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::POINT, $type->componentType());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -76,9 +76,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::COMPOUNDCURVE;
 
-        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
-        self::assertNull($type->componentType());
-        self::assertFalse($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        static::assertNull($type->componentType());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -88,9 +88,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::CURVEPOLYGON;
 
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $type->topologicalDimension());
-        self::assertNull($type->componentType());
-        self::assertFalse($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $type->topologicalDimension());
+        static::assertNull($type->componentType());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -102,23 +102,23 @@ final class GeometryTypeEnumTest extends TestCase
         $curve = GeometryTypeEnum::CURVE;
         $solid = GeometryTypeEnum::SOLID;
 
-        self::assertNull($geometry->componentType());
-        self::assertNull($geometry->topologicalDimension());
-        self::assertFalse($geometry->isCollection());
-        self::assertFalse($geometry->isMulti());
-        self::assertFalse($geometry->isInstantiable());
+        static::assertNull($geometry->componentType());
+        static::assertNull($geometry->topologicalDimension());
+        static::assertFalse($geometry->isCollection());
+        static::assertFalse($geometry->isMulti());
+        static::assertFalse($geometry->isInstantiable());
 
-        self::assertNull($curve->componentType());
-        self::assertSame(TopologicalDimensionEnum::CURVE, $curve->topologicalDimension());
-        self::assertFalse($curve->isCollection());
-        self::assertFalse($curve->isMulti());
-        self::assertFalse($curve->isInstantiable());
+        static::assertNull($curve->componentType());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $curve->topologicalDimension());
+        static::assertFalse($curve->isCollection());
+        static::assertFalse($curve->isMulti());
+        static::assertFalse($curve->isInstantiable());
 
-        self::assertNull($solid->componentType());
-        self::assertSame(TopologicalDimensionEnum::VOLUME, $solid->topologicalDimension());
-        self::assertFalse($solid->isCollection());
-        self::assertFalse($solid->isMulti());
-        self::assertFalse($solid->isInstantiable());
+        static::assertNull($solid->componentType());
+        static::assertSame(TopologicalDimensionEnum::VOLUME, $solid->topologicalDimension());
+        static::assertFalse($solid->isCollection());
+        static::assertFalse($solid->isMulti());
+        static::assertFalse($solid->isInstantiable());
     }
 
     /**
@@ -129,12 +129,12 @@ final class GeometryTypeEnumTest extends TestCase
         $curves = GeometryTypeEnum::MULTICURVE;
         $surfaces = GeometryTypeEnum::MULTISURFACE;
 
-        self::assertSame(TopologicalDimensionEnum::CURVE, $curves->topologicalDimension());
-        self::assertNull($curves->componentType());
-        self::assertTrue($curves->isMulti());
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $surfaces->topologicalDimension());
-        self::assertNull($surfaces->componentType());
-        self::assertTrue($surfaces->isMulti());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $curves->topologicalDimension());
+        static::assertNull($curves->componentType());
+        static::assertTrue($curves->isMulti());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $surfaces->topologicalDimension());
+        static::assertNull($surfaces->componentType());
+        static::assertTrue($surfaces->isMulti());
     }
 
     /**
@@ -172,11 +172,11 @@ final class GeometryTypeEnumTest extends TestCase
             GeometryTypeEnum::TRIANGLE->name => true,
         ];
 
-        self::assertCount(count(GeometryTypeEnum::cases()), $expected);
+        static::assertCount(\count(GeometryTypeEnum::cases()), $expected);
 
         foreach (GeometryTypeEnum::cases() as $type) {
-            self::assertArrayHasKey($type->name, $expected);
-            self::assertSame($expected[$type->name], $type->isInstantiable());
+            static::assertArrayHasKey($type->name, $expected);
+            static::assertSame($expected[$type->name], $type->isInstantiable());
         }
     }
 
@@ -187,10 +187,10 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::POINT;
 
-        self::assertSame(TopologicalDimensionEnum::POINT, $type->topologicalDimension());
-        self::assertNull($type->componentType());
-        self::assertFalse($type->isCollection());
-        self::assertFalse($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::POINT, $type->topologicalDimension());
+        static::assertNull($type->componentType());
+        static::assertFalse($type->isCollection());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -200,10 +200,10 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::GEOMETRYCOLLECTION;
 
-        self::assertNull($type->topologicalDimension());
-        self::assertNull($type->componentType());
-        self::assertTrue($type->isCollection());
-        self::assertFalse($type->isMulti());
+        static::assertNull($type->topologicalDimension());
+        static::assertNull($type->componentType());
+        static::assertTrue($type->isCollection());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -213,9 +213,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::MULTIPOLYGON;
 
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $type->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::POLYGON, $type->componentType());
-        self::assertTrue($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $type->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::POLYGON, $type->componentType());
+        static::assertTrue($type->isMulti());
     }
 
     /**
@@ -225,9 +225,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::MULTILINESTRING;
 
-        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::LINESTRING, $type->componentType());
-        self::assertTrue($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::LINESTRING, $type->componentType());
+        static::assertTrue($type->isMulti());
     }
 
     /**
@@ -237,9 +237,9 @@ final class GeometryTypeEnumTest extends TestCase
     {
         $type = GeometryTypeEnum::LINESTRING;
 
-        self::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::POINT, $type->componentType());
-        self::assertFalse($type->isMulti());
+        static::assertSame(TopologicalDimensionEnum::CURVE, $type->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::POINT, $type->componentType());
+        static::assertFalse($type->isMulti());
     }
 
     /**
@@ -251,11 +251,11 @@ final class GeometryTypeEnumTest extends TestCase
         $polyhedralSurface = GeometryTypeEnum::POLYHEDRALSURFACE;
         $triangle = GeometryTypeEnum::TRIANGLE;
 
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $tin->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::TRIANGLE, $tin->componentType());
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $polyhedralSurface->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::POLYGON, $polyhedralSurface->componentType());
-        self::assertSame(TopologicalDimensionEnum::SURFACE, $triangle->topologicalDimension());
-        self::assertSame(GeometryTypeEnum::LINESTRING, $triangle->componentType());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $tin->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::TRIANGLE, $tin->componentType());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $polyhedralSurface->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::POLYGON, $polyhedralSurface->componentType());
+        static::assertSame(TopologicalDimensionEnum::SURFACE, $triangle->topologicalDimension());
+        static::assertSame(GeometryTypeEnum::LINESTRING, $triangle->componentType());
     }
 }

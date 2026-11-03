@@ -32,10 +32,10 @@ final class TopologicalDimensionEnumTest extends TestCase
     {
         $geometry = TopologicalDimensionEnum::SURFACE;
 
-        self::assertTrue($geometry->isSurface());
-        self::assertFalse($geometry->isEmpty());
-        self::assertFalse($geometry->isPoint());
-        self::assertFalse($geometry->isCurve());
+        static::assertTrue($geometry->isSurface());
+        static::assertFalse($geometry->isEmpty());
+        static::assertFalse($geometry->isPoint());
+        static::assertFalse($geometry->isCurve());
     }
 
     /**
@@ -45,10 +45,10 @@ final class TopologicalDimensionEnumTest extends TestCase
     {
         $geometry = TopologicalDimensionEnum::EMPTY;
 
-        self::assertTrue($geometry->isEmpty());
-        self::assertFalse($geometry->isPoint());
-        self::assertFalse($geometry->isCurve());
-        self::assertFalse($geometry->isSurface());
+        static::assertTrue($geometry->isEmpty());
+        static::assertFalse($geometry->isPoint());
+        static::assertFalse($geometry->isCurve());
+        static::assertFalse($geometry->isSurface());
     }
 
     /**
@@ -58,10 +58,10 @@ final class TopologicalDimensionEnumTest extends TestCase
     {
         $geometry = TopologicalDimensionEnum::POINT;
 
-        self::assertTrue($geometry->isPoint());
-        self::assertFalse($geometry->isEmpty());
-        self::assertFalse($geometry->isCurve());
-        self::assertFalse($geometry->isSurface());
+        static::assertTrue($geometry->isPoint());
+        static::assertFalse($geometry->isEmpty());
+        static::assertFalse($geometry->isCurve());
+        static::assertFalse($geometry->isSurface());
     }
 
     /**
@@ -71,10 +71,10 @@ final class TopologicalDimensionEnumTest extends TestCase
     {
         $geometry = TopologicalDimensionEnum::CURVE;
 
-        self::assertTrue($geometry->isCurve());
-        self::assertFalse($geometry->isEmpty());
-        self::assertFalse($geometry->isPoint());
-        self::assertFalse($geometry->isSurface());
+        static::assertTrue($geometry->isCurve());
+        static::assertFalse($geometry->isEmpty());
+        static::assertFalse($geometry->isPoint());
+        static::assertFalse($geometry->isSurface());
     }
 
     /**
@@ -84,10 +84,10 @@ final class TopologicalDimensionEnumTest extends TestCase
     {
         $geometry = TopologicalDimensionEnum::VOLUME;
 
-        self::assertTrue($geometry->isVolume());
-        self::assertFalse($geometry->isEmpty());
-        self::assertFalse($geometry->isPoint());
-        self::assertFalse($geometry->isCurve());
-        self::assertFalse($geometry->isSurface());
+        static::assertTrue($geometry->isVolume());
+        static::assertFalse($geometry->isEmpty());
+        static::assertFalse($geometry->isPoint());
+        static::assertFalse($geometry->isCurve());
+        static::assertFalse($geometry->isSurface());
     }
 }

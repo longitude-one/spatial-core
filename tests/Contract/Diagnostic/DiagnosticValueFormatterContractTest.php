@@ -40,8 +40,8 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         foreach ($sequences as $sequence) {
             $result = DiagnosticValueFormatter::format($sequence);
 
-            self::assertStringNotContainsString("\x1B", $result);
-            self::assertStringContainsString('\u{001B}', $result);
+            static::assertStringNotContainsString("\x1B", $result);
+            static::assertStringContainsString('\u{001B}', $result);
             $this->assertDiagnosticInvariants($result);
         }
     }
@@ -51,18 +51,18 @@ final class DiagnosticValueFormatterContractTest extends TestCase
      */
     public function testAsciiControlCharactersAreNeutralized(): void
     {
-        $value = implode('', array_map(chr(...), range(0x00, 0x1F))).chr(0x7F);
+        $value = implode('', array_map(chr(...), range(0x00, 0x1F))).\chr(0x7F);
         $result = DiagnosticValueFormatter::format($value);
 
         foreach (range(0x00, 0x1F) as $controlCharacter) {
-            self::assertStringNotContainsString(chr($controlCharacter), $result);
+            static::assertStringNotContainsString(\chr($controlCharacter), $result);
         }
 
-        self::assertStringNotContainsString(chr(0x7F), $result);
-        self::assertStringContainsString('\n', $result);
-        self::assertStringContainsString('\r', $result);
-        self::assertStringContainsString('\t', $result);
-        self::assertStringContainsString('\0', $result);
+        static::assertStringNotContainsString(\chr(0x7F), $result);
+        static::assertStringContainsString('\n', $result);
+        static::assertStringContainsString('\r', $result);
+        static::assertStringContainsString('\t', $result);
+        static::assertStringContainsString('\0', $result);
         $this->assertDiagnosticInvariants($result);
     }
 
@@ -82,9 +82,9 @@ final class DiagnosticValueFormatterContractTest extends TestCase
             $result = DiagnosticValueFormatter::format($value);
 
             if ('empty' === $name) {
-                self::assertSame('', $result);
+                static::assertSame('', $result);
             } else {
-                self::assertNotSame('', $result, $name);
+                static::assertNotSame('', $result, $name);
             }
 
             $this->assertDiagnosticInvariants($result);
@@ -100,7 +100,7 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $result = DiagnosticValueFormatter::format($value);
         $formattedAgain = DiagnosticValueFormatter::format($result);
 
-        self::assertSame($result, $formattedAgain);
+        static::assertSame($result, $formattedAgain);
         $this->assertDiagnosticInvariants($result);
         $this->assertDiagnosticInvariants($formattedAgain);
     }
@@ -113,9 +113,9 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $value = str_repeat("POINT(1 2)\xC3\n\x1B[2J\u{202E}", self::MAX_EXPECTED_LENGTH);
         $result = DiagnosticValueFormatter::format($value);
 
-        self::assertStringContainsString('POINT(1 2)\xC3\n\u{001B}[2J\u{202E}', $result);
-        self::assertStringNotContainsString("\x1B", $result);
-        self::assertStringEndsWith('…', $result);
+        static::assertStringContainsString('POINT(1 2)\xC3\n\u{001B}[2J\u{202E}', $result);
+        static::assertStringNotContainsString("\x1B", $result);
+        static::assertStringEndsWith('…', $result);
         $this->assertDiagnosticInvariants($result);
     }
 
@@ -137,9 +137,9 @@ final class DiagnosticValueFormatterContractTest extends TestCase
             $result = DiagnosticValueFormatter::format($value);
 
             if (mb_strlen($value) <= self::MAX_EXPECTED_LENGTH) {
-                self::assertSame($value, $result, $name);
+                static::assertSame($value, $result, $name);
             } else {
-                self::assertStringEndsWith('…', $result, $name);
+                static::assertStringEndsWith('…', $result, $name);
             }
 
             $this->assertDiagnosticInvariants($result);
@@ -157,8 +157,8 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $preservedResult = DiagnosticValueFormatter::format($justBeforeTheLimit);
         $truncatedResult = DiagnosticValueFormatter::format($justAfterTheLimit);
 
-        self::assertSame($justBeforeTheLimit, $preservedResult);
-        self::assertSame(str_repeat('a', self::MAX_EXPECTED_LENGTH - 2).'東…', $truncatedResult);
+        static::assertSame($justBeforeTheLimit, $preservedResult);
+        static::assertSame(str_repeat('a', self::MAX_EXPECTED_LENGTH - 2).'東…', $truncatedResult);
         $this->assertDiagnosticInvariants($preservedResult);
         $this->assertDiagnosticInvariants($truncatedResult);
     }
@@ -170,7 +170,7 @@ final class DiagnosticValueFormatterContractTest extends TestCase
     {
         $result = DiagnosticValueFormatter::format("first\nsecond\rthird\r\nfourth");
 
-        self::assertSame('first\nsecond\rthird\r\nfourth', $result);
+        static::assertSame('first\nsecond\rthird\r\nfourth', $result);
         $this->assertDiagnosticInvariants($result);
     }
 
@@ -188,7 +188,7 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         foreach ($values as $value) {
             $result = DiagnosticValueFormatter::format($value);
 
-            self::assertSame($value, $result);
+            static::assertSame($value, $result);
             $this->assertDiagnosticInvariants($result);
         }
     }
@@ -201,7 +201,7 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $value = "<>\"'&{}\\";
         $result = DiagnosticValueFormatter::format($value);
 
-        self::assertSame($value, $result);
+        static::assertSame($value, $result);
         $this->assertDiagnosticInvariants($result);
     }
 
@@ -213,7 +213,7 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $value = "a\u{202E}b\u{202A}c\u{2066}d\u{2069}e\u{200B}f\u{FEFF}g";
         $result = DiagnosticValueFormatter::format($value);
 
-        self::assertSame(
+        static::assertSame(
             'a\u{202E}b\u{202A}c\u{2066}d\u{2069}e\u{200B}f\u{FEFF}g',
             $result,
         );
@@ -228,8 +228,8 @@ final class DiagnosticValueFormatterContractTest extends TestCase
         $value = 'POLYGON(('.str_repeat('2.3522 48.8566, ', self::MAX_EXPECTED_LENGTH).'))';
         $result = DiagnosticValueFormatter::format($value);
 
-        self::assertStringStartsWith('POLYGON((2.3522 48.8566, ', $result);
-        self::assertStringEndsWith('…', $result);
+        static::assertStringStartsWith('POLYGON((2.3522 48.8566, ', $result);
+        static::assertStringEndsWith('…', $result);
         $this->assertDiagnosticInvariants($result);
     }
 
@@ -240,9 +240,9 @@ final class DiagnosticValueFormatterContractTest extends TestCase
      */
     private function assertDiagnosticInvariants(string $result): void
     {
-        self::assertStringNotContainsString("\n", $result);
-        self::assertStringNotContainsString("\r", $result);
-        self::assertTrue(mb_check_encoding($result, 'UTF-8'));
-        self::assertLessThanOrEqual(self::MAX_EXPECTED_LENGTH, mb_strlen($result));
+        static::assertStringNotContainsString("\n", $result);
+        static::assertStringNotContainsString("\r", $result);
+        static::assertTrue(mb_check_encoding($result, 'UTF-8'));
+        static::assertLessThanOrEqual(self::MAX_EXPECTED_LENGTH, mb_strlen($result));
     }
 }

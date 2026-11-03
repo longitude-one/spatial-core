@@ -32,9 +32,9 @@ final class SpatialModelEnumTest extends TestCase
     {
         $model = SpatialModelEnum::GEOMETRY;
 
-        self::assertTrue($model->isGeometry());
-        self::assertFalse($model->isGeography());
-        self::assertFalse($model->requiresGeographicCoordinateRanges());
+        static::assertTrue($model->isGeometry());
+        static::assertFalse($model->isGeography());
+        static::assertFalse($model->requiresGeographicCoordinateRanges());
     }
 
     /**
@@ -44,8 +44,8 @@ final class SpatialModelEnumTest extends TestCase
     {
         $model = SpatialModelEnum::GEOGRAPHY;
 
-        self::assertTrue($model->isGeography());
-        self::assertFalse($model->isGeometry());
-        self::assertTrue($model->requiresGeographicCoordinateRanges());
+        static::assertTrue($model->isGeography());
+        static::assertFalse($model->isGeometry());
+        static::assertTrue($model->requiresGeographicCoordinateRanges());
     }
 }

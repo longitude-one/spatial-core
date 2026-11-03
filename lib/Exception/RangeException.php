@@ -36,11 +36,11 @@ class RangeException extends \RangeException implements ExceptionInterface
      *
      * @param string          $value    value that falls outside the permitted range
      * @param int             $code     range error code
-     * @param null|\Throwable $previous previous exception, if any
+     * @param \Throwable|null $previous previous exception, if any
      */
     public function __construct(string $value, int $code, ?\Throwable $previous = null)
     {
-        $message = sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), DiagnosticValueFormatter::format($value));
+        $message = \sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), DiagnosticValueFormatter::format($value));
 
         parent::__construct($message, $code, $previous);
     }
@@ -50,7 +50,7 @@ class RangeException extends \RangeException implements ExceptionInterface
      *
      * @param AxisEnum        $axis     geographic axis whose range was exceeded
      * @param string          $value    value that falls outside the permitted range
-     * @param null|\Throwable $previous previous exception, if any
+     * @param \Throwable|null $previous previous exception, if any
      */
     public static function forAxis(AxisEnum $axis, string $value, ?\Throwable $previous = null): self
     {
