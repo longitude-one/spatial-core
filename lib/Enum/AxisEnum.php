@@ -29,14 +29,14 @@ enum AxisEnum
     case LATITUDE;
     case LONGITUDE;
 
-    public const EAST_CARDINAL = 'E';
-    public const LATITUDE_ABBREVIATION = 'lat';
-    public const LATITUDE_RANGE_LIMIT = 90;
-    public const LONGITUDE_ABBREVIATION = 'lon';
-    public const LONGITUDE_RANGE_LIMIT = 180;
-    public const NORTH_CARDINAL = 'N';
-    public const SOUTH_CARDINAL = 'S';
-    public const WEST_CARDINAL = 'W';
+    public const string EAST_CARDINAL = 'E';
+    public const string LATITUDE_ABBREVIATION = 'lat';
+    public const int LATITUDE_RANGE_LIMIT = 90;
+    public const string LONGITUDE_ABBREVIATION = 'lon';
+    public const int LONGITUDE_RANGE_LIMIT = 180;
+    public const string NORTH_CARDINAL = 'N';
+    public const string SOUTH_CARDINAL = 'S';
+    public const string WEST_CARDINAL = 'W';
 
     /**
      * Return the conventional abbreviation for the axis.

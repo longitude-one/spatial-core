@@ -30,7 +30,7 @@ final class ByteOrderEnumTest extends TestCase
      */
     public function testBigEndianMarker(): void
     {
-        self::assertSame(0, ByteOrderEnum::BIG_ENDIAN->value);
+        static::assertSame(0, ByteOrderEnum::BIG_ENDIAN->value);
     }
 
     /**
@@ -38,6 +38,6 @@ final class ByteOrderEnumTest extends TestCase
      */
     public function testLittleEndianMarker(): void
     {
-        self::assertSame(1, ByteOrderEnum::LITTLE_ENDIAN->value);
+        static::assertSame(1, ByteOrderEnum::LITTLE_ENDIAN->value);
     }
 }

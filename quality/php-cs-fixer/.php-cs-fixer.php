@@ -15,8 +15,7 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 // Replace the value of this variable with the project's launch year.
-$firstYear = 2026;
-$loFirstYear = 2026;
+const LO_FIRST_YEAR = 2026;
 
 function __copyright(int $launchYear): string
 {
@@ -29,8 +28,7 @@ function __copyright(int $launchYear): string
 }
 
 $header = file_get_contents(__DIR__.'/headers.txt');
-$header = str_replace('%year%', __copyright($firstYear), $header);
-$header = str_replace('%lo-year%', __copyright($loFirstYear), $header);
+$header = str_replace('%year%', __copyright(LO_FIRST_YEAR), $header);
 
 $finder = Finder::create()
     ->files()
@@ -48,13 +46,11 @@ $config = new Config();
 
 return $config->setRules([
     '@Symfony' => true,
-    '@DoctrineAnnotation' => true,
-    '@PhpCsFixer' => true,
-    '@PHPUnit10x0Migration:risky' => true,
-    '@PHP8x4Migration' => true,
+    '@Symfony:risky' => true,
+    '@autoPHPMigration' => true,
+    '@autoPHPMigration:risky' => true,
+    '@autoPHPUnitMigration:risky' => true,
     'declare_strict_types' => true,
-    'dir_constant' => true, // Remove when @PHPCsFixerRisky is added
-    'ereg_to_preg' => true, // Remove when @PHPCsFixerRisky is added
     'header_comment' => [
         'comment_type' => 'PHPDoc',
         'header' => $header,
@@ -62,13 +58,6 @@ return $config->setRules([
         'separate' => 'bottom',
     ],
     //        'date_time_immutable' => true,
-    'is_null' => true, // Remove when @PHPCsFixerRisky is added
-    'mb_str_functions' => true, // Set to false if we only use multibyte string functions for ClassName
-    'modernize_types_casting' => true, // Remove when @PHPCsFixerRisky is added
-    'new_expression_parentheses' => [
-        'use_parentheses' => true,
-    ],
-    'no_unneeded_final_method' => true, // Remove when @PHPCsFixerRisky is added
     'ordered_interfaces' => [
         'direction' => 'ascend',
         'order' => 'alpha',
@@ -91,9 +80,8 @@ return $config->setRules([
         'call_type' => 'static',
         'target' => 'newest',
     ],
-    'single_line_throw' => false, // FIXME set to true when all #60 is fixed
-    'single_line_empty_body' => false,
 ])
+    ->setRiskyAllowed(true)
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/.php_cs.cache')
 ;

@@ -25,13 +25,25 @@ use PHPUnit\Framework\TestCase;
 final class DiagnosticValueFormatterTest extends TestCase
 {
     /**
+     * @return iterable<string, array{string}>
+     */
+    public static function oversizedValues(): iterable
+    {
+        yield 'plain characters' => [str_repeat('a', DiagnosticValueFormatter::MAX_LENGTH + 1)];
+
+        yield 'expanding newlines' => [str_repeat("\n", DiagnosticValueFormatter::MAX_LENGTH)];
+
+        yield 'malformed UTF-8 bytes' => [str_repeat("\xFF", DiagnosticValueFormatter::MAX_LENGTH)];
+    }
+
+    /**
      * Makes control characters and terminal escapes visible without creating a new terminal line.
      */
     public function testItEscapesControlCharactersAndTerminalSequences(): void
     {
         $value = "POINT(1 2)\r\nforged\0\t\x1B[31mred\x1B[0m";
 
-        self::assertSame(
+        static::assertSame(
             'POINT(1 2)\r\nforged\0\t\u{001B}[31mred\u{001B}[0m',
             DiagnosticValueFormatter::format($value),
         );
@@ -44,7 +56,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $value = "Paris € \xC3(";
 
-        self::assertSame('Paris € \xC3(', DiagnosticValueFormatter::format($value));
+        static::assertSame('Paris € \xC3(', DiagnosticValueFormatter::format($value));
     }
 
     /**
@@ -54,7 +66,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $value = "POLYGON\u{202E}(0 0)\u{2028}hidden\u{200B}";
 
-        self::assertSame(
+        static::assertSame(
             'POLYGON\u{202E}(0 0)\u{2028}hidden\u{200B}',
             DiagnosticValueFormatter::format($value),
         );
@@ -65,7 +77,7 @@ final class DiagnosticValueFormatterTest extends TestCase
      */
     public function testItPreservesAnOrdinaryValue(): void
     {
-        self::assertSame('POINT(2.3522 48.8566)', DiagnosticValueFormatter::format('POINT(2.3522 48.8566)'));
+        static::assertSame('POINT(2.3522 48.8566)', DiagnosticValueFormatter::format('POINT(2.3522 48.8566)'));
     }
 
     /**
@@ -78,19 +90,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $formatted = DiagnosticValueFormatter::format($value);
 
-        self::assertSame(DiagnosticValueFormatter::MAX_LENGTH, mb_strlen($formatted));
-        self::assertStringEndsWith('…', $formatted);
-    }
-
-    /**
-     * @return iterable<string, array{string}>
-     */
-    public static function oversizedValues(): iterable
-    {
-        yield 'plain characters' => [str_repeat('a', DiagnosticValueFormatter::MAX_LENGTH + 1)];
-
-        yield 'expanding newlines' => [str_repeat("\n", DiagnosticValueFormatter::MAX_LENGTH)];
-
-        yield 'malformed UTF-8 bytes' => [str_repeat("\xFF", DiagnosticValueFormatter::MAX_LENGTH)];
+        static::assertSame(DiagnosticValueFormatter::MAX_LENGTH, mb_strlen($formatted));
+        static::assertStringEndsWith('…', $formatted);
     }
 }

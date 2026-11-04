@@ -21,9 +21,9 @@ final class DiagnosticValueFormatter
     /**
      * Maximum number of characters in a formatted value, including the truncation suffix.
      */
-    public const MAX_LENGTH = 2048;
+    public const int MAX_LENGTH = 2048;
 
-    private const TRUNCATION_SUFFIX = '…';
+    private const string TRUNCATION_SUFFIX = '…';
 
     /**
      * Formats a value for inclusion in a diagnostic message.
@@ -77,7 +77,7 @@ final class DiagnosticValueFormatter
             "\n" => '\n',
             "\r" => '\r',
             default => 1 === preg_match('/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u', $character)
-                ? sprintf('\u{%04X}', mb_ord($character))
+                ? \sprintf('\u{%04X}', mb_ord($character))
                 : $character,
         };
     }
@@ -95,7 +95,7 @@ final class DiagnosticValueFormatter
         $valueLength = mb_strlen($value, '8bit');
 
         while ($offset < $valueLength) {
-            $byte = ord($value[$offset]);
+            $byte = \ord($value[$offset]);
             $characterLength = self::utf8CharacterLength($byte);
             $character = mb_substr($value, $offset, $characterLength, '8bit');
 
@@ -103,7 +103,7 @@ final class DiagnosticValueFormatter
                 $replacement = self::formatCharacter($character);
                 $offset += $characterLength;
             } else {
-                $replacement = sprintf('\x%02X', $byte);
+                $replacement = \sprintf('\x%02X', $byte);
                 ++$offset;
             }
 
@@ -128,7 +128,7 @@ final class DiagnosticValueFormatter
         $valueLength = mb_strlen($value, '8bit');
 
         while ($offset < $valueLength) {
-            $characterLength = self::utf8CharacterLength(ord($value[$offset]));
+            $characterLength = self::utf8CharacterLength(\ord($value[$offset]));
             $character = mb_substr($value, $offset, $characterLength, '8bit');
 
             if (!self::appendReplacement($formatted, $formattedLength, self::formatCharacter($character))) {

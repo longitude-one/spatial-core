@@ -21,26 +21,26 @@ use LongitudeOne\Core\Enum\AxisEnum;
  */
 class RangeException extends \RangeException implements ExceptionInterface
 {
-    public const DEFAULT_MESSAGE = 'Unknown range exception';
-    public const LATITUDE_MESSAGE = 'Latitude must be between -90 and 90';
-    public const LATITUDE_OUT_OF_RANGE = 90;
-    public const LONGITUDE_MESSAGE = 'Longitude must be between -180 and 180';
-    public const LONGITUDE_OUT_OF_RANGE = 180;
-    public const MINUTES_MESSAGE = 'Minutes must be between 0 and 59';
-    public const MINUTES_OUT_OF_RANGE = 3600;
-    public const SECONDS_MESSAGE = 'Seconds must be between 0 and 59';
-    public const SECONDS_OUT_OF_RANGE = 60;
+    public const string DEFAULT_MESSAGE = 'Unknown range exception';
+    public const string LATITUDE_MESSAGE = 'Latitude must be between -90 and 90';
+    public const int LATITUDE_OUT_OF_RANGE = 90;
+    public const string LONGITUDE_MESSAGE = 'Longitude must be between -180 and 180';
+    public const int LONGITUDE_OUT_OF_RANGE = 180;
+    public const string MINUTES_MESSAGE = 'Minutes must be between 0 and 59';
+    public const int MINUTES_OUT_OF_RANGE = 3600;
+    public const string SECONDS_MESSAGE = 'Seconds must be between 0 and 59';
+    public const int SECONDS_OUT_OF_RANGE = 60;
 
     /**
      * Creates a range exception for the supplied value and error code.
      *
      * @param string          $value    value that falls outside the permitted range
      * @param int             $code     range error code
-     * @param null|\Throwable $previous previous exception, if any
+     * @param \Throwable|null $previous previous exception, if any
      */
     public function __construct(string $value, int $code, ?\Throwable $previous = null)
     {
-        $message = sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), DiagnosticValueFormatter::format($value));
+        $message = \sprintf('[RangeException] %s, got "%s".', $this->setMessage($code), DiagnosticValueFormatter::format($value));
 
         parent::__construct($message, $code, $previous);
     }
@@ -50,7 +50,7 @@ class RangeException extends \RangeException implements ExceptionInterface
      *
      * @param AxisEnum        $axis     geographic axis whose range was exceeded
      * @param string          $value    value that falls outside the permitted range
-     * @param null|\Throwable $previous previous exception, if any
+     * @param \Throwable|null $previous previous exception, if any
      */
     public static function forAxis(AxisEnum $axis, string $value, ?\Throwable $previous = null): self
     {
