@@ -11,3 +11,4 @@ vendor/
 build/
 node_modules/
 package-lock.json
+!/phpunit.ci.xml

@@ -44,3 +44,7 @@ Use optional scopes, for example `fix(range): report the correct axis error`.
 Link the issue, explain behavioral changes, and report validation results in the PR.
 All required checks must pass before pushing. Obtain independent review and Alexandre’s merge decision.
 Do not mark work Done before merge. Escalate unresolved public API, compatibility, architecture, or normative decisions to Alexandre.
+
+CI coverage uses `composer coverage-ci` and `phpunit.ci.xml` (Clover XML only).
+Local `composer coverage` reports are unchanged. See `CONTRIBUTING.md` for triggers,
+cache policy and the aggregate `CI` check.
