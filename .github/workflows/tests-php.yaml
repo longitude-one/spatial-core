@@ -56,7 +56,7 @@ jobs:
         run: composer install -vvv
 
       - name: Run PHP test group
-        run: composer run-script test-coverage
+        run: composer run-script coverage
 
       - name: Cache Composer PHP-CS-Fixer packages
         uses: actions/cache@v6
@@ -113,12 +113,21 @@ jobs:
       - name: Run PHP-STAN
         run: ./quality/php-stan/vendor/bin/phpstan analyse --configuration=quality/php-stan/php-stan.neon lib tests --error-format=table --no-progress --no-interaction --no-ansi --level=9 --memory-limit=256M -v
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+            node-version: '22'
+      - name: Install Markdown tools
+        run: npm install --ignore-scripts
+      - name: Check Markdown
+        run: composer markdown
+
       - name: Upload coverage to Codecov
         if: ${{ env.HAS_CC_SECRET == 'true' }}
         uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: .phpunit.cache/code-coverage/clover.xml
+          files: build/coverage/clover.xml
           slug: longitude-one/spatial-core
 
   compatibility-test:

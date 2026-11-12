@@ -5,12 +5,13 @@
 Install project dependencies:
 
 ```bash
-composer upgrade-tools
+composer update-tools
 ```
 
 To run all quality tools, use the `quality` Composer script:
 
 ```bash
+npm install --ignore-scripts
 composer quality
 ```
 

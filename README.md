@@ -248,7 +248,7 @@ composer test
 Generate the coverage reports:
 
 ```bash
-composer test-coverage
+composer coverage
 ```
 
-The coverage outputs are written to `.phpunit.cache/code-coverage/`, including `clover.xml` and an HTML report at `html/index.html`.
+The coverage outputs are written to `build/coverage/`, including `clover.xml` and an HTML report at `html/index.html`.

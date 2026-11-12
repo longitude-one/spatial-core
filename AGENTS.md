@@ -13,13 +13,13 @@ Consult `README.md` for public behavior and `CONTRIBUTING.md` for the full contr
 Use PHP 8.3+ with `mbstring` and Composer. This library has no application server or asset build.
 
 - `composer install`: install library development dependencies.
-- `composer upgrade-tools`: install or update project and quality-tool dependencies; inspect resulting changes.
+- `composer update-tools`: update only the four isolated quality-tool environments; inspect resulting changes.
 - `composer validate --strict`: validate package metadata.
 - `composer test`: run PHPUnit.
-- `composer test-coverage`: generate coverage reports under `.phpunit.cache/`; requires a coverage driver.
+- `composer coverage`: generate coverage reports under `build/coverage/`; requires a coverage driver.
 - `composer quality`: run PHP-CS-Fixer checks, PHPStan level 9, PHPMD, and PHP_CodeSniffer.
-- `composer quality-fix`: apply PHP-CS-Fixer formatting; rerun quality checks afterward.
-- `composer markdownlint`: lint Markdown; install Node.js and `markdownlint-cli2` first.
+- `composer cs-fix`: apply PHP-CS-Fixer formatting; rerun quality checks afterward.
+- `composer markdown`: lint Markdown; run `npm install --ignore-scripts` first.
 - `git diff --check`: detect whitespace errors before committing.
 
 ## Coding Style & Naming Conventions
