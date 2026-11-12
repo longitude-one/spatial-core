@@ -2,6 +2,9 @@
 name: 'LongitudeOne GeoParser rule set'
 description: 'Specific custom rule set that checks longitude-one/geo-parser test code.'
 rules:
+  - ref: rulesets/cleancode.xml
+    exclude:
+      - StaticAccess
   - ref: rulesets/unusedcode.xml
   - ref: rulesets/codesize.xml
     exclude:
