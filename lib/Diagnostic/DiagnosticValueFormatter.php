@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -98,13 +99,9 @@ final class DiagnosticValueFormatter
             $characterLength = self::utf8CharacterLength($byte);
             $character = mb_substr($value, $offset, $characterLength, '8bit');
 
-            if ($characterLength === mb_strlen($character, '8bit') && 1 === preg_match('//u', $character)) {
-                $replacement = self::formatCharacter($character);
-                $offset += $characterLength;
-            } else {
-                $replacement = \sprintf('\x%02X', $byte);
-                ++$offset;
-            }
+            $isValidCharacter = $characterLength === mb_strlen($character, '8bit') && 1 === preg_match('//u', $character);
+            $replacement = $isValidCharacter ? self::formatCharacter($character) : \sprintf('\x%02X', $byte);
+            $offset += $isValidCharacter ? $characterLength : 1;
 
             if (!self::appendReplacement($formatted, $formattedLength, $replacement)) {
                 return self::truncate($formatted);
