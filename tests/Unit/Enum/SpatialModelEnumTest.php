@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -31,9 +32,9 @@ final class SpatialModelEnumTest extends TestCase
     {
         $model = SpatialModelEnum::GEOMETRY;
 
-        static::assertTrue($model->isGeometry());
-        static::assertFalse($model->isGeography());
-        static::assertFalse($model->requiresGeographicCoordinateRanges());
+        self::assertTrue($model->isGeometry());
+        self::assertFalse($model->isGeography());
+        self::assertFalse($model->requiresGeographicCoordinateRanges());
     }
 
     /**
@@ -43,8 +44,8 @@ final class SpatialModelEnumTest extends TestCase
     {
         $model = SpatialModelEnum::GEOGRAPHY;
 
-        static::assertTrue($model->isGeography());
-        static::assertFalse($model->isGeometry());
-        static::assertTrue($model->requiresGeographicCoordinateRanges());
+        self::assertTrue($model->isGeography());
+        self::assertFalse($model->isGeometry());
+        self::assertTrue($model->requiresGeographicCoordinateRanges());
     }
 }

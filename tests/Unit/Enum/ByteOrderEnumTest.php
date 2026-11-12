@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -29,7 +30,7 @@ final class ByteOrderEnumTest extends TestCase
      */
     public function testBigEndianMarker(): void
     {
-        static::assertSame(0, ByteOrderEnum::BIG_ENDIAN->value);
+        self::assertSame(0, ByteOrderEnum::BIG_ENDIAN->value);
     }
 
     /**
@@ -37,6 +38,6 @@ final class ByteOrderEnumTest extends TestCase
      */
     public function testLittleEndianMarker(): void
     {
-        static::assertSame(1, ByteOrderEnum::LITTLE_ENDIAN->value);
+        self::assertSame(1, ByteOrderEnum::LITTLE_ENDIAN->value);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -29,7 +30,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeocentricCoordinateReferenceSystem(): void
     {
-        static::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
+        self::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
     }
 
     /**
@@ -37,7 +38,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeographicCoordinateReferenceSystem(): void
     {
-        static::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
+        self::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
     }
 
     /**
@@ -45,6 +46,6 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testProjectedCoordinateReferenceSystem(): void
     {
-        static::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
+        self::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -29,7 +30,7 @@ final class UnitTypeEnumTest extends TestCase
      */
     public function testAngularUnit(): void
     {
-        static::assertSame('ANGULAR', UnitTypeEnum::ANGULAR->value);
+        self::assertSame('ANGULAR', UnitTypeEnum::ANGULAR->value);
     }
 
     /**
@@ -37,6 +38,6 @@ final class UnitTypeEnumTest extends TestCase
      */
     public function testLinearUnit(): void
     {
-        static::assertSame('LINEAR', UnitTypeEnum::LINEAR->value);
+        self::assertSame('LINEAR', UnitTypeEnum::LINEAR->value);
     }
 }

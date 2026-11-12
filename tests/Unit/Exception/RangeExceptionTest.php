@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the LongitudeOne Spatial project.
  *
@@ -50,12 +51,12 @@ final class RangeExceptionTest extends TestCase
 
         $sanitizedValue = 'invalid\nvalue\u{001B}[31m';
 
-        static::assertSame(
+        self::assertSame(
             \sprintf('[RangeException] %s, got "%s".', RangeException::LATITUDE_MESSAGE, $sanitizedValue),
             $exception->getMessage(),
         );
-        static::assertStringNotContainsString("\n", $exception->getMessage());
-        static::assertStringNotContainsString("\x1B", $exception->getMessage());
+        self::assertStringNotContainsString("\n", $exception->getMessage());
+        self::assertStringNotContainsString("\x1B", $exception->getMessage());
     }
 
     /**
@@ -66,8 +67,8 @@ final class RangeExceptionTest extends TestCase
         // The error belongs to the latitude when its value falls outside -90 to 90 degrees.
         $exception = RangeException::forAxis(AxisEnum::LATITUDE, '91');
 
-        static::assertSame(RangeException::LATITUDE_OUT_OF_RANGE, $exception->getCode());
-        static::assertSame('[RangeException] Latitude must be between -90 and 90, got "91".', $exception->getMessage());
+        self::assertSame(RangeException::LATITUDE_OUT_OF_RANGE, $exception->getCode());
+        self::assertSame('[RangeException] Latitude must be between -90 and 90, got "91".', $exception->getMessage());
     }
 
     /**
@@ -78,8 +79,8 @@ final class RangeExceptionTest extends TestCase
         // The error belongs to the longitude when its value falls outside -180 to 180 degrees.
         $exception = RangeException::forAxis(AxisEnum::LONGITUDE, '181');
 
-        static::assertSame(RangeException::LONGITUDE_OUT_OF_RANGE, $exception->getCode());
-        static::assertSame('[RangeException] Longitude must be between -180 and 180, got "181".', $exception->getMessage());
+        self::assertSame(RangeException::LONGITUDE_OUT_OF_RANGE, $exception->getCode());
+        self::assertSame('[RangeException] Longitude must be between -180 and 180, got "181".', $exception->getMessage());
     }
 
     /**
@@ -93,7 +94,7 @@ final class RangeExceptionTest extends TestCase
     {
         $exception = new RangeException('invalid value', $code);
 
-        static::assertSame($code, $exception->getCode());
-        static::assertSame(\sprintf('[RangeException] %s, got "invalid value".', $message), $exception->getMessage());
+        self::assertSame($code, $exception->getCode());
+        self::assertSame(\sprintf('[RangeException] %s, got "invalid value".', $message), $exception->getMessage());
     }
 }
