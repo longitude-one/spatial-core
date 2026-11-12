@@ -2,7 +2,7 @@
 
 ![longitude-one/spatial-core](https://img.shields.io/badge/longitude--one-spatial--core-blue)
 ![Stable release](https://img.shields.io/github/v/release/longitude-one/spatial-core)
-[![PHP CI](https://github.com/longitude-one/spatial-core/actions/workflows/tests-php.yaml/badge.svg)](https://github.com/longitude-one/spatial-core/actions/workflows/tests-php.yaml)
+[![PHP CI](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml/badge.svg)](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml)
 ![Minimum PHP Version](https://img.shields.io/packagist/php-v/longitude-one/spatial-core.svg?maxAge=3600)
 [![Downloads](https://img.shields.io/packagist/dm/longitude-one/spatial-core.svg)](https://packagist.org/packages/longitude-one/spatial-core)
 [![codecov](https://codecov.io/gh/longitude-one/spatial-core/graph/badge.svg?token=I6F6GZL5KK)](https://codecov.io/gh/longitude-one/spatial-core)
@@ -248,7 +248,7 @@ composer test
 Generate the coverage reports:
 
 ```bash
-composer test-coverage
+composer coverage
 ```
 
-The coverage outputs are written to `.phpunit.cache/code-coverage/`, including `clover.xml` and an HTML report at `html/index.html`.
+The coverage outputs are written to `build/coverage/`, including `clover.xml` and an HTML report at `html/index.html`.

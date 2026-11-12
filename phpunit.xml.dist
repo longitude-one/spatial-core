@@ -18,9 +18,9 @@
   </source>
   <coverage includeUncoveredFiles="true">
     <report>
-      <clover outputFile=".phpunit.cache/clover.xml"/>
-      <html outputDirectory=".phpunit.cache/coverage-html"/>
-      <text outputFile=".phpunit.cache/coverage-results.txt" showOnlySummary="true"/>
+      <clover outputFile="build/coverage/clover.xml"/>
+      <html outputDirectory="build/coverage/html"/>
+      <text outputFile="build/coverage/coverage.txt" showOnlySummary="true"/>
     </report>
   </coverage>
 </phpunit>

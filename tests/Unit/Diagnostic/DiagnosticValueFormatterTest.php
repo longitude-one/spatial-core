@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -43,7 +43,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $value = "POINT(1 2)\r\nforged\0\t\x1B[31mred\x1B[0m";
 
-        static::assertSame(
+        self::assertSame(
             'POINT(1 2)\r\nforged\0\t\u{001B}[31mred\u{001B}[0m',
             DiagnosticValueFormatter::format($value),
         );
@@ -56,7 +56,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $value = "Paris € \xC3(";
 
-        static::assertSame('Paris € \xC3(', DiagnosticValueFormatter::format($value));
+        self::assertSame('Paris € \xC3(', DiagnosticValueFormatter::format($value));
     }
 
     /**
@@ -66,7 +66,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $value = "POLYGON\u{202E}(0 0)\u{2028}hidden\u{200B}";
 
-        static::assertSame(
+        self::assertSame(
             'POLYGON\u{202E}(0 0)\u{2028}hidden\u{200B}',
             DiagnosticValueFormatter::format($value),
         );
@@ -77,7 +77,7 @@ final class DiagnosticValueFormatterTest extends TestCase
      */
     public function testItPreservesAnOrdinaryValue(): void
     {
-        static::assertSame('POINT(2.3522 48.8566)', DiagnosticValueFormatter::format('POINT(2.3522 48.8566)'));
+        self::assertSame('POINT(2.3522 48.8566)', DiagnosticValueFormatter::format('POINT(2.3522 48.8566)'));
     }
 
     /**
@@ -90,7 +90,7 @@ final class DiagnosticValueFormatterTest extends TestCase
     {
         $formatted = DiagnosticValueFormatter::format($value);
 
-        static::assertSame(DiagnosticValueFormatter::MAX_LENGTH, mb_strlen($formatted));
-        static::assertStringEndsWith('…', $formatted);
+        self::assertSame(DiagnosticValueFormatter::MAX_LENGTH, mb_strlen($formatted));
+        self::assertStringEndsWith('…', $formatted);
     }
 }

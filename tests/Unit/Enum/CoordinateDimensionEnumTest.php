@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -32,13 +32,13 @@ final class CoordinateDimensionEnumTest extends TestCase
     {
         $location = CoordinateDimensionEnum::XYZ;
 
-        static::assertSame(3, $location->coordinateDimension());
-        static::assertTrue($location->is3D());
-        static::assertFalse($location->hasM());
-        static::assertSame(['X', 'Y', 'Z'], $location->ordinates());
-        static::assertNull($location->mIndex());
-        static::assertSame(2, $location->zIndex());
-        static::assertSame('Z', $location->wktModifier());
+        self::assertSame(3, $location->coordinateDimension());
+        self::assertTrue($location->is3D());
+        self::assertFalse($location->hasM());
+        self::assertSame(['X', 'Y', 'Z'], $location->ordinates());
+        self::assertNull($location->mIndex());
+        self::assertSame(2, $location->zIndex());
+        self::assertSame('Z', $location->wktModifier());
     }
 
     /**
@@ -48,13 +48,13 @@ final class CoordinateDimensionEnumTest extends TestCase
     {
         $route = CoordinateDimensionEnum::XYZM;
 
-        static::assertSame(4, $route->coordinateDimension());
-        static::assertTrue($route->is3D());
-        static::assertTrue($route->hasM());
-        static::assertSame(['X', 'Y', 'Z', 'M'], $route->ordinates());
-        static::assertSame(3, $route->mIndex());
-        static::assertSame(2, $route->zIndex());
-        static::assertSame('ZM', $route->wktModifier());
+        self::assertSame(4, $route->coordinateDimension());
+        self::assertTrue($route->is3D());
+        self::assertTrue($route->hasM());
+        self::assertSame(['X', 'Y', 'Z', 'M'], $route->ordinates());
+        self::assertSame(3, $route->mIndex());
+        self::assertSame(2, $route->zIndex());
+        self::assertSame('ZM', $route->wktModifier());
     }
 
     /**
@@ -64,13 +64,13 @@ final class CoordinateDimensionEnumTest extends TestCase
     {
         $route = CoordinateDimensionEnum::XYM;
 
-        static::assertSame(3, $route->coordinateDimension());
-        static::assertFalse($route->is3D());
-        static::assertTrue($route->hasM());
-        static::assertSame(['X', 'Y', 'M'], $route->ordinates());
-        static::assertSame(2, $route->mIndex());
-        static::assertNull($route->zIndex());
-        static::assertSame('M', $route->wktModifier());
+        self::assertSame(3, $route->coordinateDimension());
+        self::assertFalse($route->is3D());
+        self::assertTrue($route->hasM());
+        self::assertSame(['X', 'Y', 'M'], $route->ordinates());
+        self::assertSame(2, $route->mIndex());
+        self::assertNull($route->zIndex());
+        self::assertSame('M', $route->wktModifier());
     }
 
     /**
@@ -80,12 +80,12 @@ final class CoordinateDimensionEnumTest extends TestCase
     {
         $location = CoordinateDimensionEnum::XY;
 
-        static::assertSame(2, $location->coordinateDimension());
-        static::assertFalse($location->is3D());
-        static::assertFalse($location->hasM());
-        static::assertSame(['X', 'Y'], $location->ordinates());
-        static::assertNull($location->mIndex());
-        static::assertNull($location->zIndex());
-        static::assertSame('', $location->wktModifier());
+        self::assertSame(2, $location->coordinateDimension());
+        self::assertFalse($location->is3D());
+        self::assertFalse($location->hasM());
+        self::assertSame(['X', 'Y'], $location->ordinates());
+        self::assertNull($location->mIndex());
+        self::assertNull($location->zIndex());
+        self::assertSame('', $location->wktModifier());
     }
 }

@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -31,8 +31,8 @@ final class AxisEnumTest extends TestCase
     public function testAxesCompleteEachOther(): void
     {
         // A geographic position always combines one north-south and one east-west axis.
-        static::assertSame(AxisEnum::LONGITUDE, AxisEnum::LATITUDE->other());
-        static::assertSame(AxisEnum::LATITUDE, AxisEnum::LONGITUDE->other());
+        self::assertSame(AxisEnum::LONGITUDE, AxisEnum::LATITUDE->other());
+        self::assertSame(AxisEnum::LATITUDE, AxisEnum::LONGITUDE->other());
     }
 
     /**
@@ -43,12 +43,12 @@ final class AxisEnumTest extends TestCase
         $latitude = AxisEnum::LATITUDE;
 
         // Latitude describes the north-south position on the globe.
-        static::assertSame('lat', $latitude->abbreviation());
-        static::assertSame('N', $latitude->positiveCardinal());
-        static::assertSame('S', $latitude->negativeCardinal());
+        self::assertSame('lat', $latitude->abbreviation());
+        self::assertSame('N', $latitude->positiveCardinal());
+        self::assertSame('S', $latitude->negativeCardinal());
 
         // A latitude cannot be farther than 90 degrees from the equator.
-        static::assertSame(90, $latitude->rangeLimit());
+        self::assertSame(90, $latitude->rangeLimit());
     }
 
     /**
@@ -59,11 +59,11 @@ final class AxisEnumTest extends TestCase
         $longitude = AxisEnum::LONGITUDE;
 
         // Longitude describes the east-west position around the globe.
-        static::assertSame('lon', $longitude->abbreviation());
-        static::assertSame('E', $longitude->positiveCardinal());
-        static::assertSame('W', $longitude->negativeCardinal());
+        self::assertSame('lon', $longitude->abbreviation());
+        self::assertSame('E', $longitude->positiveCardinal());
+        self::assertSame('W', $longitude->negativeCardinal());
 
         // A longitude cannot be farther than 180 degrees from the prime meridian.
-        static::assertSame(180, $longitude->rangeLimit());
+        self::assertSame(180, $longitude->rangeLimit());
     }
 }

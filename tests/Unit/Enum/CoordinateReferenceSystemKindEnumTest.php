@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -30,7 +30,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeocentricCoordinateReferenceSystem(): void
     {
-        static::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
+        self::assertSame('GEOCENTRIC', CoordinateReferenceSystemKindEnum::GEOCENTRIC->value);
     }
 
     /**
@@ -38,7 +38,7 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testGeographicCoordinateReferenceSystem(): void
     {
-        static::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
+        self::assertSame('GEOGRAPHIC', CoordinateReferenceSystemKindEnum::GEOGRAPHIC->value);
     }
 
     /**
@@ -46,6 +46,6 @@ final class CoordinateReferenceSystemKindEnumTest extends TestCase
      */
     public function testProjectedCoordinateReferenceSystem(): void
     {
-        static::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
+        self::assertSame('PROJECTED', CoordinateReferenceSystemKindEnum::PROJECTED->value);
     }
 }

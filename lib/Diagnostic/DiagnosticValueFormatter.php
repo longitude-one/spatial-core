@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -99,13 +99,9 @@ final class DiagnosticValueFormatter
             $characterLength = self::utf8CharacterLength($byte);
             $character = mb_substr($value, $offset, $characterLength, '8bit');
 
-            if ($characterLength === mb_strlen($character, '8bit') && 1 === preg_match('//u', $character)) {
-                $replacement = self::formatCharacter($character);
-                $offset += $characterLength;
-            } else {
-                $replacement = \sprintf('\x%02X', $byte);
-                ++$offset;
-            }
+            $isValidCharacter = $characterLength === mb_strlen($character, '8bit') && 1 === preg_match('//u', $character);
+            $replacement = $isValidCharacter ? self::formatCharacter($character) : \sprintf('\x%02X', $byte);
+            $offset += $isValidCharacter ? $characterLength : 1;
 
             if (!self::appendReplacement($formatted, $formattedLength, $replacement)) {
                 return self::truncate($formatted);

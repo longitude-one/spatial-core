@@ -1,11 +1,11 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -30,7 +30,7 @@ final class UnitTypeEnumTest extends TestCase
      */
     public function testAngularUnit(): void
     {
-        static::assertSame('ANGULAR', UnitTypeEnum::ANGULAR->value);
+        self::assertSame('ANGULAR', UnitTypeEnum::ANGULAR->value);
     }
 
     /**
@@ -38,6 +38,6 @@ final class UnitTypeEnumTest extends TestCase
      */
     public function testLinearUnit(): void
     {
-        static::assertSame('LINEAR', UnitTypeEnum::LINEAR->value);
+        self::assertSame('LINEAR', UnitTypeEnum::LINEAR->value);
     }
 }
