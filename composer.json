@@ -16,6 +16,7 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
+        "ext-dom": "*",
         "phpunit/phpunit": "^12.5.34",
         "phpunit/phpcov": "^11.0"
     },
