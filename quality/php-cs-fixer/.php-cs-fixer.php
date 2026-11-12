@@ -1,11 +1,10 @@
 <?php
-/**
- * This file is part of the LongitudeOne Spatial core library.
+/*
+ * This file is part of the LongitudeOne Spatial project.
  *
- * PHP 8.3 | 8.4 | 8.5
+ * Copyright (c) 2026 Alexandre Tranchant <alexandre.tranchant@gmail.com>
  *
- * Copyright LongitudeOne - Alexandre Tranchant.
- * Copyright 2026.
+ * See LICENSE for copyright and license information.
  *
  */
 
@@ -31,11 +30,10 @@ $header = file_get_contents(__DIR__.'/headers.txt');
 $header = str_replace('%year%', __copyright(LO_FIRST_YEAR), $header);
 
 $finder = Finder::create()
-    ->files()
-    ->name('*.php')
     ->in([
         __DIR__.'/../../lib/',
         __DIR__.'/../../tests/',
+        __DIR__.'/../../quality/',
     ])
     ->append([
         __FILE__,
@@ -51,8 +49,12 @@ return $config->setRules([
     '@autoPHPMigration:risky' => true,
     '@autoPHPUnitMigration:risky' => true,
     'declare_strict_types' => true,
+    // Keep parentheses for PHP 8.3 compatibility.
+    'new_expression_parentheses' => [
+        'use_parentheses' => true,
+    ],
     'header_comment' => [
-        'comment_type' => 'PHPDoc',
+        'comment_type' => 'comment',
         'header' => $header,
         'location' => 'after_open',
         'separate' => 'bottom',
@@ -77,7 +79,7 @@ return $config->setRules([
         'sort_algorithm' => 'alpha',
     ],
     'php_unit_test_case_static_method_calls' => [
-        'call_type' => 'static',
+        'call_type' => 'self',
         'target' => 'newest',
     ],
 ])
