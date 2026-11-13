@@ -58,3 +58,19 @@ Resolve failures before submitting. In the pull request:
 
 Keep checks passing when updating the pull request.
 Contributions require successful CI checks and independent review before merge.
+
+## Tests and coverage
+
+Run the test suite:
+
+```bash
+composer test
+```
+
+Generate the coverage reports:
+
+```bash
+composer coverage
+```
+
+The coverage outputs are written to `build/coverage/`, including `clover.xml` and an HTML report at `html/index.html`.

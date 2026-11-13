@@ -1,16 +1,16 @@
-# Spatial core: longitude-one/spatial-core
+# Spatial Core
 
-![longitude-one/spatial-core](https://img.shields.io/badge/longitude--one-spatial--core-blue)
-![Stable release](https://img.shields.io/github/v/release/longitude-one/spatial-core)
-[![PHP CI](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml/badge.svg)](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml)
-![Minimum PHP Version](https://img.shields.io/packagist/php-v/longitude-one/spatial-core.svg?maxAge=3600)
-[![Downloads](https://img.shields.io/packagist/dm/longitude-one/spatial-core.svg)](https://packagist.org/packages/longitude-one/spatial-core)
-[![codecov](https://codecov.io/gh/longitude-one/spatial-core/graph/badge.svg?token=I6F6GZL5KK)](https://codecov.io/gh/longitude-one/spatial-core)
+[![Release](https://img.shields.io/github/v/release/longitude-one/spatial-core?include_prereleases&sort=semver&label=release)](https://github.com/longitude-one/spatial-core/releases)
+[![PHP](https://img.shields.io/packagist/php-v/longitude-one/spatial-core?label=php)](https://packagist.org/packages/longitude-one/spatial-core)
+[![License](https://img.shields.io/packagist/l/longitude-one/spatial-core)](https://github.com/longitude-one/spatial-core/blob/main/LICENSE)
+[![CI](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml/badge.svg)](https://github.com/longitude-one/spatial-core/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/longitude-one/spatial-core/branch/main/graph/badge.svg)](https://codecov.io/gh/longitude-one/spatial-core/tree/main)
+[![Monthly downloads](https://img.shields.io/packagist/dm/longitude-one/spatial-core)](https://packagist.org/packages/longitude-one/spatial-core)
+[![Documentation](https://img.shields.io/badge/docs-v1-blue)](https://www.longitude-one.fr/spatial-core/v1/index.html)
 
-Shared spatial primitives for LongitudeOne spatial libraries.
-
-The package provides spatial models, geometry types, coordinate and topological dimensions, geographic
-axis conventions, and exceptions for values outside their valid range.
+Shared spatial primitives for LongitudeOne PHP libraries.
+The package provides spatial models, geometry types, coordinate and topological dimensions,
+geographic axis conventions, and diagnostic and range-exception helpers.
 
 ## Installation
 
@@ -18,12 +18,9 @@ axis conventions, and exceptions for values outside their valid range.
 composer require longitude-one/spatial-core:^1.3.0
 ```
 
-## Support policy
+## Usage
 
-This package supports PHP 8.3 and later. Its public API includes the enums documented below,
-`DiagnosticValueFormatter`, `ExceptionInterface`, and `RangeException`.
-
-## Geographic axes
+### Geographic axes
 
 `AxisEnum` describes the two axes of a geographic coordinate:
 
@@ -44,6 +41,15 @@ assert(90 === $latitude->rangeLimit());
 
 assert(AxisEnum::LONGITUDE === $latitude->other());
 ```
+
+## Documentation
+
+Read the [official documentation](https://www.longitude-one.fr/spatial-core/v1/index.html).
+
+## Support policy
+
+This package supports PHP 8.3 and later. Its public API includes the enums documented below,
+`DiagnosticValueFormatter`, `ExceptionInterface`, and `RangeException`.
 
 ## Range exceptions
 
@@ -237,18 +243,6 @@ final class InvalidValueException extends \InvalidArgumentException implements E
 }
 ```
 
-## Development
+## Contributing
 
-Run the test suite:
-
-```bash
-composer test
-```
-
-Generate the coverage reports:
-
-```bash
-composer coverage
-```
-
-The coverage outputs are written to `build/coverage/`, including `clover.xml` and an HTML report at `html/index.html`.
+See [Contributing](CONTRIBUTING.md) for development setup, checks and contribution guidelines.
