@@ -4,7 +4,8 @@ Thank you for contributing to `longitude-one/spatial-core`.
 
 ## Before committing
 
-Run the following checks from the project root before pushing a commit. A contribution is ready to push only when every command completes successfully and the working tree contains the intended changes.
+Run the following checks from the project root before pushing a commit. A contribution is ready to push only when every command completes successfully and the working tree contains
+the intended changes.
 
 ### 1. Install project dependencies
 
