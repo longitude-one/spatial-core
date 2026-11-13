@@ -1,22 +1,49 @@
-# Using the quality tools
+# Quality tools
 
-## Getting started
+This directory contains quality tool configurations and the coverage checker.
+Run all commands from the repository root.
 
-Install project dependencies:
+## Setup
 
 ```bash
+composer install
 composer update-tools
+npm install --ignore-scripts
 ```
 
-To run all quality tools, use the `quality` Composer script:
+## Daily use
 
 ```bash
-npm install --ignore-scripts
 composer quality
 ```
 
-To run the test suite:
+Checks coding style, static analysis, code quality, and Markdown formatting.
+
+To automatically fix PHP coding style:
+
+```bash
+composer cs-fix
+```
+
+Review the changes and rerun the checks.
+
+## Before contributing
+
+Before each commit, run:
 
 ```bash
 composer test
+composer quality
 ```
+
+Before opening or updating a merge request, run:
+
+```bash
+composer check
+```
+
+This validates Composer configuration, audits dependencies, runs tests with
+coverage, checks the coverage threshold, and runs all quality checks.
+Coverage requires PCOV.
+
+Resolve all failures before submitting your changes.
