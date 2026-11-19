@@ -39,6 +39,8 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertNull($location->mIndex());
         self::assertSame(2, $location->zIndex());
         self::assertSame('Z', $location->wktModifier());
+        self::assertSame(1000, $location->wkbCode());
+        self::assertSame($location, CoordinateDimensionEnum::tryFromWkbCode(1000));
     }
 
     /**
@@ -55,6 +57,8 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(3, $route->mIndex());
         self::assertSame(2, $route->zIndex());
         self::assertSame('ZM', $route->wktModifier());
+        self::assertSame(3000, $route->wkbCode());
+        self::assertSame($route, CoordinateDimensionEnum::tryFromWkbCode(3000));
     }
 
     /**
@@ -71,6 +75,8 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertSame(2, $route->mIndex());
         self::assertNull($route->zIndex());
         self::assertSame('M', $route->wktModifier());
+        self::assertSame(2000, $route->wkbCode());
+        self::assertSame($route, CoordinateDimensionEnum::tryFromWkbCode(2000));
     }
 
     /**
@@ -87,5 +93,7 @@ final class CoordinateDimensionEnumTest extends TestCase
         self::assertNull($location->mIndex());
         self::assertNull($location->zIndex());
         self::assertSame('', $location->wktModifier());
+        self::assertSame(0, $location->wkbCode());
+        self::assertSame($location, CoordinateDimensionEnum::tryFromWkbCode(0));
     }
 }
