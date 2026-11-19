@@ -182,6 +182,94 @@ assert(GeometryTypeEnum::POLYGON === $type->componentType());
 assert(TopologicalDimensionEnum::SURFACE === $type->topologicalDimension());
 ```
 
+### WKB correspondences
+
+Use the existing geometry and coordinate-dimension enums to compose SQL/MM WKB type identifiers.
+Their string backing values remain unchanged.
+
+| Method | Return value |
+| --- | --- |
+| `GeometryTypeEnum::wkbCode(): ?int` | Canonical geometry base code, or `null` for a type without a correspondence below |
+| `GeometryTypeEnum::tryFromWkbCode(int $code): ?self` | Geometry for an exact canonical base code, or `null` |
+| `CoordinateDimensionEnum::wkbCode(): int` | Additive dimension offset |
+| `CoordinateDimensionEnum::tryFromWkbCode(int $code): ?self` | Layout for an exact dimension offset, or `null` |
+
+The `wkbCode()` methods are instance methods; `tryFromWkbCode()` methods are static.
+
+```php
+use LongitudeOne\Core\Enum\CoordinateDimensionEnum;
+use LongitudeOne\Core\Enum\GeometryTypeEnum;
+
+$baseCode = GeometryTypeEnum::POINT->wkbCode();
+$offset = CoordinateDimensionEnum::XYZ->wkbCode();
+
+assert(1 === $baseCode);
+assert(1000 === $offset);
+assert(1001 === $baseCode + $offset); // Complete identifier for Point XYZ.
+assert(GeometryTypeEnum::POINT === GeometryTypeEnum::tryFromWkbCode(1));
+assert(CoordinateDimensionEnum::XYZ === CoordinateDimensionEnum::tryFromWkbCode(1000));
+assert(null === GeometryTypeEnum::tryFromWkbCode(1001));
+assert(null === CoordinateDimensionEnum::tryFromWkbCode(1001));
+```
+
+Both reverse methods perform exact lookups. They do not split a complete identifier into geometry and dimension.
+For example, `1000` is a dimension offset, while `1` is a geometry base code; each is rejected by the other enum.
+Negative and unknown integers, dimensioned identifiers such as `1001`, and EWKB flags such as `0x80000001` return `null`.
+SQL/MM dimension offsets are added, whereas EWKB uses extension-specific bit flags; these methods do not translate EWKB or vendor formats.
+
+| Coordinate layout | Dimension offset |
+| --- | ---: |
+| `XY` | 0 |
+| `XYZ` | 1000 |
+| `XYM` | 2000 |
+| `XYZM` | 3000 |
+
+Every current geometry case has an explicit correspondence or exclusion:
+
+| Geometry case | Base code | Reference or reason for absence |
+| --- | ---: | --- |
+| `POINT` | 1 | OGC §8.2.8; ISO Table 15 |
+| `LINESTRING` | 2 | OGC §8.2.8; ISO Table 15 |
+| `POLYGON` | 3 | OGC §8.2.8; ISO Table 15 |
+| `MULTIPOINT` | 4 | OGC §8.2.8; ISO Table 15 |
+| `MULTILINESTRING` | 5 | OGC §8.2.8; ISO Table 15 |
+| `MULTIPOLYGON` | 6 | OGC §8.2.8; ISO Table 15 |
+| `GEOMETRYCOLLECTION` | 7 | OGC §8.2.8; ISO Table 15 |
+| `CIRCULARSTRING` | 8 | ISO Table 15 |
+| `COMPOUNDCURVE` | 9 | ISO Table 15 |
+| `CURVEPOLYGON` | 10 | ISO Table 15 |
+| `MULTICURVE` | 11 | ISO Table 15 |
+| `MULTISURFACE` | 12 | ISO Table 15 |
+| `POLYHEDRALSURFACE` | 15 | OGC §8.2.8; ISO Table 15 |
+| `TIN` | 16 | OGC §8.2.8; ISO Table 15 |
+| `TRIANGLE` | 17 | OGC §8.2.8; ISO Table 15 |
+| `GEOMETRY` | `null` | Abstract type; OGC common code 0 has no autonomous WKB representation here |
+| `CURVE` | `null` | Abstract type; OGC common code 13 has no autonomous WKB representation here |
+| `SURFACE` | `null` | Abstract type; OGC common code 14 has no autonomous WKB representation here |
+| `SOLID` | `null` | No correspondence in the WKB references below |
+| `BREPSOLID` | `null` | No correspondence in the WKB references below |
+| `CIRCLE` | `null` | No correspondence in the WKB references below |
+| `CLOTHOID` | `null` | No correspondence in the WKB references below |
+| `COMPOUNDSURFACE` | `null` | No correspondence in the WKB references below |
+| `ELLIPTICALCURVE` | `null` | No correspondence in the WKB references below |
+| `GEODESICSTRING` | `null` | No correspondence in the WKB references below |
+| `NURBSCURVE` | `null` | No correspondence in the WKB references below |
+| `SPIRALCURVE` | `null` | No correspondence in the WKB references below |
+
+The WKB references used for these correspondences are:
+
+- [OGC Simple Feature Access 1.2.1 (OGC 06-103r4)](https://www.opengis.net/doc/is/sfa/1.2.1), section 8,
+  particularly §8.2.3 (Table 7, common and reserved codes) and §8.2.8 (WKB representations).
+- ISO/IEC CD 13249-3:201x(E), Committee Draft dated 2009-01-16, clause 5.1.58,
+  Table 15, printed pages 177–179. This source is a Committee Draft, not a final published edition.
+
+OGC's common code list includes reserved types beyond the representations it defines.
+This API returns `null` for the abstract types above rather than exposing their reserved codes;
+enum membership or instantiability alone does not guarantee a WKB correspondence.
+For the curve and multi-geometry codes 8–12, the selected ISO draft also lists historical aliases `1000001`–`1000005`.
+This API emits and accepts only the canonical codes 8–12; it rejects those aliases.
+The four dimension offsets follow the corresponding Z, M, and ZM identifier families in these references.
+
 ### `ByteOrderEnum`
 
 `ByteOrderEnum` provides the standard byte-order marker for a Well-Known Binary (WKB) serializer or

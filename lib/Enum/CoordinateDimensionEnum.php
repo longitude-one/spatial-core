@@ -35,6 +35,24 @@ enum CoordinateDimensionEnum: string
     case XYZM = 'XYZM';
 
     /**
+     * Return the coordinate layout for an exact SQL/MM WKB dimension offset.
+     *
+     * Geometry base codes, complete dimensioned identifiers, and EWKB flags return null.
+     *
+     * @param int $code SQL/MM WKB dimension offset
+     */
+    public static function tryFromWkbCode(int $code): ?self
+    {
+        return match ($code) {
+            0 => self::XY,
+            1000 => self::XYZ,
+            2000 => self::XYM,
+            3000 => self::XYZM,
+            default => null,
+        };
+    }
+
+    /**
      * Return the coordinate dimension, namely the number of ordinates in one coordinate.
      */
     public function coordinateDimension(): int
@@ -109,6 +127,22 @@ enum CoordinateDimensionEnum: string
             self::XYM => ['X', 'Y', 'M'],
             self::XYZ => ['X', 'Y', 'Z'],
             self::XYZM => ['X', 'Y', 'Z', 'M'],
+        };
+    }
+
+    /**
+     * Return the SQL/MM WKB dimension offset, to add to a representable geometry's base code.
+     *
+     * References: OGC 06-103r4, section 8; ISO/IEC CD 13249-3:201x(E), clause 5.1.58, Table 15.
+     * These additive offsets are not EWKB bit flags.
+     */
+    public function wkbCode(): int
+    {
+        return match ($this) {
+            self::XY => 0,
+            self::XYZ => 1000,
+            self::XYM => 2000,
+            self::XYZM => 3000,
         };
     }
 

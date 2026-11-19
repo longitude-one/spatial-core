@@ -99,6 +99,37 @@ enum GeometryTypeEnum: string
     /** A triangular area. */
     case TRIANGLE = 'Triangle';
 
+    /** Canonical base codes from ISO/IEC CD 13249-3:201x(E), clause 5.1.58, Table 15. */
+    private const WKB_GEOMETRIES = [
+        1 => self::POINT,
+        2 => self::LINESTRING,
+        3 => self::POLYGON,
+        4 => self::MULTIPOINT,
+        5 => self::MULTILINESTRING,
+        6 => self::MULTIPOLYGON,
+        7 => self::GEOMETRYCOLLECTION,
+        8 => self::CIRCULARSTRING,
+        9 => self::COMPOUNDCURVE,
+        10 => self::CURVEPOLYGON,
+        11 => self::MULTICURVE,
+        12 => self::MULTISURFACE,
+        15 => self::POLYHEDRALSURFACE,
+        16 => self::TIN,
+        17 => self::TRIANGLE,
+    ];
+
+    /**
+     * Return the geometry for a canonical WKB base code, without a dimension offset.
+     *
+     * Complete dimensioned identifiers, reserved codes, legacy aliases, and EWKB flags return null.
+     *
+     * @param int $code canonical WKB geometry base code
+     */
+    public static function tryFromWkbCode(int $code): ?self
+    {
+        return self::WKB_GEOMETRIES[$code] ?? null;
+    }
+
     /**
      * Return the homogeneous component type, if the geometry type has one.
      */
@@ -183,5 +214,18 @@ enum GeometryTypeEnum: string
             self::BREPSOLID, self::SOLID => TopologicalDimensionEnum::VOLUME,
             default => null,
         };
+    }
+
+    /**
+     * Return the canonical WKB base code, or null when no representation is defined here.
+     *
+     * References: OGC 06-103r4, section 8; ISO/IEC CD 13249-3:201x(E), clause 5.1.58, Table 15.
+     * This code has no dimension offset or EWKB flags. Reserved abstract-type codes are excluded.
+     */
+    public function wkbCode(): ?int
+    {
+        $code = array_search($this, self::WKB_GEOMETRIES, true);
+
+        return false === $code ? null : $code;
     }
 }
