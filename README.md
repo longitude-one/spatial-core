@@ -15,7 +15,7 @@ geographic axis conventions, and diagnostic and range-exception helpers.
 ## Installation
 
 ```bash
-composer require longitude-one/spatial-core:^1.3.0
+composer require longitude-one/spatial-core:^1.4.0
 ```
 
 ## Usage
